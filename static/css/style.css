@@ -1,0 +1,40 @@
+.body {
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    min-height: 150vh;
+    padding-left: 50px!important;
+    padding-right: 50px!important;
+
+
+}
+
+/* .main {
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding-left: 100px!important;
+    min-height: 100%;
+} */
+
+
+
+.header {
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding: 30px;
+}
+
+.keyDD {
+    padding-top: 50px;
+    border-left: 100px;
+}
+
+.keyButton {
+    padding-left: 50px;
+}
+
+.keyDisp {
+    padding-top: 20px;
+}
