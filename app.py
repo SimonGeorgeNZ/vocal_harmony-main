@@ -6,7 +6,6 @@ from os import path
 if path.exists("env.py"):
     import env
 
-
 app = Flask(__name__)
 
 app.config["MONGO_DBNAME"] = 'vocal_harmony'
