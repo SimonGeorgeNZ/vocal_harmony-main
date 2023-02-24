@@ -40,8 +40,9 @@
                 </div>
                 <div class="header">
                     <p id="keyIs">The notes are  </p>
-                    {{ notes }}
-
+                    {% if notes %}
+                    {{ notes|join(', ') }}
+                    {% endif %}
                 </div>
             </div>
         </div>  

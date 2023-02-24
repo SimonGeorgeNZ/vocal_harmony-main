@@ -27,9 +27,8 @@ def get_data():
 
 def pick_your_key():
     sel_key = []
-    if request.method == "POST":
-        selected_key = request.form.get("keySig")
-        sel_key = mongo.db.keys.find_one({"keySig": selected_key})
+    selected_key = request.form.get("keySig")
+    sel_key = mongo.db.keys.find_one({"keySig": selected_key})
     return sel_key
 
 
@@ -37,16 +36,26 @@ def get_scale_notes():
     keyNotes = pick_your_key()
     if request.method == "POST":
         listNotes = keyNotes.get("notes")
-        noteString = ", ".join(listNotes)
-        return noteString
+        return listNotes
+
+
+def shuffle():
+    notes = get_scale_notes()
+    if request.method == "POST":
+        note_String = ", ".join(notes)
+
+        return notes
 
 
 @app.route("/", methods=["GET", "POST"])
 def Load_the_page():
+    test = shuffle()
     sel_key = pick_your_key()
     key_Sig = get_data()
     noteString = get_scale_notes()
-    return render_template("index.html", ks=key_Sig, sk=sel_key, notes=noteString)
+    return render_template(
+        "index.html", ks=key_Sig, sk=sel_key, notes=noteString, test=test
+    )
 
 
 if __name__ == "__main__":
