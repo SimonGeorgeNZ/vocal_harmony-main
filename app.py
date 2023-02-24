@@ -30,22 +30,21 @@ def pick_your_key():
     if request.method == "POST":
         selected_key = request.form.get("keySig")
         sel_key = mongo.db.keys.find_one({"keySig": selected_key})
-        return sel_key
+    return sel_key
 
 
 def get_scale_notes():
-    noteString = ""
-    sel_key = [pick_your_key()]
-    keyNotes = [sel_key]
-    # noteString = ", ".join(keyNotes)
-    return noteString
+    keyNotes = pick_your_key()
+    if request.method == "POST":
+        listNotes = keyNotes.get("notes")
+        noteString = ", ".join(listNotes)
+        return noteString
 
 
 @app.route("/", methods=["GET", "POST"])
 def Load_the_page():
     sel_key = pick_your_key()
     key_Sig = get_data()
-    pick_your_key()
     noteString = get_scale_notes()
     return render_template("index.html", ks=key_Sig, sk=sel_key, notes=noteString)
 
