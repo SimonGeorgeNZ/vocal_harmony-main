@@ -42,19 +42,26 @@ def get_scale_notes():
 def shuffle():
     notes = get_scale_notes()
     if request.method == "POST":
-        note_String = ", ".join(notes)
+        print(notes)  # prints correct order#
+        x = 0
+        while x < 6:
+            a = notes.pop(0)
+            taken = a
+            notes.append(taken)
+            x += 1
+            print(notes)
 
-        return notes
+    return notes
 
 
 @app.route("/", methods=["GET", "POST"])
 def Load_the_page():
-    test = shuffle()
-    sel_key = pick_your_key()
-    key_Sig = get_data()
-    noteString = get_scale_notes()
     return render_template(
-        "index.html", ks=key_Sig, sk=sel_key, notes=noteString, test=test
+        "index.html",
+        ks=get_data(),
+        sk=pick_your_key(),
+        notes=get_scale_notes(),
+        test=shuffle(),
     )
 
 
