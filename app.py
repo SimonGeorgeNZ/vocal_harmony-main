@@ -39,21 +39,6 @@ def get_scale_notes():
         return listNotes
 
 
-def shuffle():
-    notes = get_scale_notes()
-    if request.method == "POST":
-        print(notes)  # prints correct order#
-        x = 0
-        while x < 6:
-            a = notes.pop(0)
-            taken = a
-            notes.append(taken)
-            x += 1
-            print(notes)
-
-    return notes
-
-
 @app.route("/", methods=["GET", "POST"])
 def Load_the_page():
     return render_template(
@@ -61,7 +46,6 @@ def Load_the_page():
         ks=get_data(),
         sk=pick_your_key(),
         notes=get_scale_notes(),
-        test=shuffle(),
     )
 
 
