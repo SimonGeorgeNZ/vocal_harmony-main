@@ -26,8 +26,8 @@
    "python.formatting.provider": "black",
    "[python]": {
       "editor.defaultFormatter": "ms-python.python"
-   }
+   },
    "workbench.editorAssociations": {
     "*.wav": "wavPreview.audioPreview"
-   }
+   },
 }
