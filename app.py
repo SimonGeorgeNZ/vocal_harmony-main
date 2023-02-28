@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from playsound import playsound
 from os import path
 
 if path.exists("env.py"):
@@ -40,7 +41,7 @@ def get_scale_notes():
 
 
 @app.route("/", methods=["GET", "POST"])
-def Load_the_page():
+def load_the_page():
     return render_template(
         "index.html",
         ks=get_data(),
