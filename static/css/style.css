@@ -3,11 +3,10 @@
     border-style: solid;
     border-color: black;
     min-height: 150vh;
-    padding-left: 50px!important;
-    padding-right: 50px!important;
-
-
+    padding-left: 50px !important;
+    padding-right: 50px !important;
 }
+
 
 /* .main {
     border-width: 3px;
@@ -16,8 +15,6 @@
     padding-left: 100px!important;
     min-height: 100%;
 } */
-
-
 
 .header {
     border-width: 3px;
@@ -29,6 +26,7 @@
 .keyDD {
     padding-top: 50px;
     border-left: 100px;
+    height: auto;
 }
 
 .keyButton {
@@ -37,4 +35,25 @@
 
 .keyDisp {
     padding-top: 20px;
+}
+
+.notesHeader {
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding: 10px;
+}
+
+.notesSection {
+    border-width: 3px;
+    border-style: solid;
+    border-color: black;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.noteselect {
+    display: inline-block;
+    justify-content: center;
 }

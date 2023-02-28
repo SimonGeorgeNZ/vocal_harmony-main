@@ -18,8 +18,6 @@ mongo = PyMongo(app)
 MONGO_URI = os.environ.get("MONGO_URI")
 MONGO_DBNAME = os.environ.get("MONGO_DBNAME")
 
-db = mongo.db.keys
-
 
 def get_data():
     key_Sig = list(mongo.db.keys.find())
@@ -38,6 +36,10 @@ def get_scale_notes():
     if request.method == "POST":
         listNotes = keyNotes.get("notes")
         return listNotes
+
+
+# def play_note():
+#     playsound("./media/C.wav")
 
 
 @app.route("/", methods=["GET", "POST"])

@@ -30,6 +30,7 @@
       "editor.defaultFormatter": "ms-python.python"
    },
    "workbench.editorAssociations": {
-    "*.wav": "wavPreview.audioPreview"
+      "*.wav": "wavPreview.audioPreview"
    },
+   "python.analysis.typeCheckingMode": "basic",
 }
