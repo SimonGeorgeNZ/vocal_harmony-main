@@ -47,9 +47,40 @@
                 </div>
             </div>
         </div>
+        <div class="notesHeader">
+            {% if notes %}
+            <form method="post">
+                <div class="row">
+                    <h1 class="text-center">Pick your root note</h1>
+
+                    <div class="col-11 notesSection">
+
+                        {% for each in notes %}
+
+
+                        <div class="form-check form-check-inline noteselect">
+                            <input name="rootSelect" class="form-check-input" type="radio" id="inlineRootCheckbox{{ each }}" value="{{ each }}">
+                            <label class="form-check-label" for="inlineRootCheckbox{{ each }}">{{ each }}</label>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="col">
+                        <button class="play_root btn btn-primary btn-lg" type="submit">Play</button>
+                    </div>
+                </div>
+            </form>
+            {% endif %}
+
+        </div>
+
         <div class="row notesHeader">
+            {% if notes %}
+            <h1 class="text-center">Select notes for harmony</h1>
             <div class="col notesSection">
-                {% if notes %} {% for notes in notes %}
+                {% for notes in notes %}
 
                 <div class="form-check form-check-inline noteselect">
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{ notes }}">

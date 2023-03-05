@@ -26,7 +26,6 @@
 .keyDD {
     padding-top: 50px;
     border-left: 100px;
-    height: auto;
 }
 
 .keyButton {
@@ -42,6 +41,7 @@
     border-style: solid;
     border-color: black;
     padding: 10px;
+    padding-left: 50px;
 }
 
 .notesSection {
@@ -54,6 +54,5 @@
 }
 
 .noteselect {
-    display: inline-block;
     justify-content: center;
 }
