@@ -60,5 +60,13 @@ def load_the_page():
     )
 
 
+@app.route('/harmony/<key>',  methods=['POST', 'GET'])
+def harmony(key):
+    key = mongo.db.keys.find_one({"keySig": key})
+    Keynotes = key["notes"]
+    print(Keynotes)
+    return redirect(url_for('harmony.html', sk=pick_your_key(), Keynotes=Keynotes, ks=get_data(), notes=get_scale_notes(),))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
