@@ -32,40 +32,64 @@ def get_data():
 # Used to display specific key note in "Your key is"#
 
 
-def pick_your_key():
-    sel_key = []
-    selected_key = request.form.get("keySig")
-    sel_key = mongo.db.keys.find_one({"keySig": selected_key})
-    return sel_key
+# def pick_your_key():
+#     sel_key = []
+#     selected_key = request.form.get("keySig")
+#     sel_key = mongo.db.keys.find_one({"keySig": selected_key})
+#     return sel_key
 
 
 # Finds all notes in selected key signature from DB using previous function#
 # Used to display all the notes of the scale in "The notes are"#
 
 
-def get_scale_notes():
-    keyNotes = pick_your_key()
-    if request.method == "POST":
-        listNotes = keyNotes.get("notes")
-        return listNotes
+# def get_scale_notes():
+#     keyNotes = pick_your_key()
+#     listNotes = keyNotes.get("notes")
+#     return listNotes
+
+
+@app.route("/test", methods=["GET"])
+def try_once():
+    return render_template(
+        "test.html",
+        ks=get_data(),
+    )
+
+
+@app.route("/test/<key>", methods=["GET"])
+def try_get(key):
+    print(key)
+    return render_template(
+        "test.html",
+        ks=get_data(),
+        # notes=get_scale_notes(),
+        key=key,
+    )
 
 
 @app.route("/", methods=["GET", "POST"])
 def load_the_page():
     return render_template(
-        "index.html",
+        "new.html",
         ks=get_data(),
-        sk=pick_your_key(),
-        notes=get_scale_notes(),
+        # sk=pick_your_key(),
+        # notes=get_scale_notes(),
     )
 
 
-@app.route('/harmony/<key>',  methods=['POST', 'GET'])
+@app.route("/harmony/<key>", methods=["POST", "GET"])
 def harmony(key):
-    key = mongo.db.keys.find_one({"keySig": key})
-    Keynotes = key["notes"]
-    print(Keynotes)
-    return redirect(url_for('harmony.html', sk=pick_your_key(), Keynotes=Keynotes, ks=get_data(), notes=get_scale_notes(),))
+    picked = mongo.db.keys.find_one({"keySig": key})
+    Keynotes = picked["notes"]
+    key = picked["keySig"]
+    return render_template(
+        "new.html",
+        # sk=pick_your_key(),
+        Keynotes=Keynotes,
+        ks=get_data(),
+        key=key,
+    )
 
 
 if __name__ == "__main__":

@@ -30,7 +30,7 @@
 <div class="row notesHeader">
     <h1 class="text-center">Select notes for harmony</h1>
     <div class="col notesSection">
-        {% for notes in notes %}
+        {% for notes in Keynotes %}
 
         <div class="form-check form-check-inline noteselect">
             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{ notes }}">
@@ -49,10 +49,10 @@
                 Pick your key
             </button>
             <ul class="dropdown-menu">
-                <form>
+                <form method="POST">
                     {% for keys in ks %}
 
-                    <li><button type="submit" formaction="{{url_for('harmony', key = ks.keySig)}}" name="keySig" class="dropdown-item text-center">{{ keys.keySig }}</button></li>
+                    <li><button href="{{url_for('harmony', key=sk['keySig'])}}" name="keySig" class="dropdown-item text-center">{{ keys.keySig }}</button></li>
 
                     {% endfor %}
                 </form>

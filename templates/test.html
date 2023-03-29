@@ -1,0 +1,22 @@
+{% extends 'base.html' %}{% block content %}
+
+<div class="btn-group keyButton">
+    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+        aria-expanded="false">
+        Pick your key
+    </button>
+    <ul class="dropdown-menu">
+        <form method="GET">
+            {% for keys in ks %}
+
+            <li><a href="{{url_for('try_get', key=keys.keySig)}}" class="brand-logo">{{ keys.keySig }}</a></li>
+
+            {% endfor %}
+        </form>
+    </ul>
+</div>
+
+
+
+
+{% endblock %}
