@@ -49,29 +49,37 @@ def get_data():
 #     return listNotes
 
 
-@app.route("/test", methods=["GET"])
-def try_once():
-    return render_template(
-        "test.html",
-        ks=get_data(),
-    )
+# @app.route("/test", methods=["GET"])
+# def try_once():
+#     return render_template(
+#         "test.html",
+#         ks=get_data(),
+#     )
 
 
-@app.route("/test/<key>", methods=["GET"])
-def try_get(key):
-    print(key)
-    return render_template(
-        "test.html",
-        ks=get_data(),
-        # notes=get_scale_notes(),
-        key=key,
-    )
+# @app.route("/test/<key>", methods=["GET"])
+# def try_get(key):
+#     print(key)
+#     return render_template(
+#         "test.html",
+#         ks=get_data(),
+#         notes=get_scale_notes(),
+#         key=key,
+#     )
+
+
+def play_note():
+    picked = mongo.db.keys.find_one({"keySig": key})
+    key = picked["keySig"]
+    string = "./media/{}.wav".format(key)
+    print(string)
+    return string
 
 
 @app.route("/", methods=["GET", "POST"])
 def load_the_page():
     return render_template(
-        "new.html",
+        "index.html",
         ks=get_data(),
         # sk=pick_your_key(),
         # notes=get_scale_notes(),
@@ -84,12 +92,30 @@ def harmony(key):
     Keynotes = picked["notes"]
     key = picked["keySig"]
     return render_template(
-        "new.html",
+        "index.html",
         # sk=pick_your_key(),
         Keynotes=Keynotes,
         ks=get_data(),
         key=key,
     )
+
+
+# @app.route("/harmony/<key>", methods=["POST", "GET"])
+# def play(key):
+#     picked = mongo.db.keys.find_one({"keySig": key})
+#     Keynotes = picked["notes"]
+#     key = picked["keySig"]
+#     string = "./media/{}.wav".format(key)
+#     playsound(string)
+#     print(key)
+#     return render_template(
+#         "index.html",
+#         play=play,
+#         # sk=pick_your_key(),
+#         Keynotes=Keynotes,
+#         ks=get_data(),
+#         key=key,
+#     )
 
 
 if __name__ == "__main__":
