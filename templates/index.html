@@ -50,30 +50,31 @@
                 </div>
             </div>
             <div class="notesHeader">
+                {% if Keynotes %}
                 <form method="post">
                     <div class="row">
                         <h1 class="text-center">Pick your root note</h1>
 
                         <div class="col-11 notesSection">
-                            {% if Keynotes %} {% for each in Keynotes %}
+                            {% for each in Keynotes %}
 
 
                             <div class="form-check form-check-inline noteselect">
-                                <a href="{{url_for('play_note', key=key)}}" name="rootSelect"
-                                    class="form-check-input" type="radio" id="inlineRootCheckbox{{ each }}"
-                                    value="{{ each }}"></a>
+                                <input name="rootSelect" class="form-check-input" type="radio"
+                                    id="inlineRootCheckbox{{ each }}" value="{{ each }}">
                                 <label class="form-check-label"
-                                    for="inlineRootCheckbox{{ each }}">{{ each }}</label>
-                            </div>
+                                    for="inlineRootCheckbox{{ each }}">{{ each }}</label></div>
 
-                            {% endfor %} {% endif %}
+                            {% endfor %}
                         </div>
 
-                        <div class="col">
-                            <button class="play_root btn btn-primary btn-lg" type="submit">Play</button>
+                        <div class="col-1">
+                            <button type="submit" class="play_root btn btn-primary btn-lg">Submit</button>
                         </div>
+
                     </div>
                 </form>
+                {% endif %}
 
             </div>
 

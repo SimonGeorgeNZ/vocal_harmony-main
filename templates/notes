@@ -33,3 +33,39 @@
         
     </div>
 </div>
+
+
+# def pick_your_key():
+#     sel_key = []
+#     selected_key = request.form.get("keySig")
+#     sel_key = mongo.db.keys.find_one({"keySig": selected_key})
+#     return sel_key
+
+
+# Finds all notes in selected key signature from DB using previous function#
+# Used to display all the notes of the scale in "The notes are"#
+
+
+# def get_scale_notes():
+#     keyNotes = pick_your_key()
+#     listNotes = keyNotes.get("notes")
+#     return listNotes
+
+
+# @app.route("/test", methods=["GET"])
+# def try_once():
+#     return render_template(
+#         "test.html",
+#         ks=get_data(),
+#     )
+
+
+# @app.route("/test/<key>", methods=["GET"])
+# def try_get(key):
+#     print(key)
+#     return render_template(
+#         "test.html",
+#         ks=get_data(),
+#         notes=get_scale_notes(),
+#         key=key,
+#     )

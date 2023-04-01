@@ -32,50 +32,6 @@ def get_data():
 # Used to display specific key note in "Your key is"#
 
 
-# def pick_your_key():
-#     sel_key = []
-#     selected_key = request.form.get("keySig")
-#     sel_key = mongo.db.keys.find_one({"keySig": selected_key})
-#     return sel_key
-
-
-# Finds all notes in selected key signature from DB using previous function#
-# Used to display all the notes of the scale in "The notes are"#
-
-
-# def get_scale_notes():
-#     keyNotes = pick_your_key()
-#     listNotes = keyNotes.get("notes")
-#     return listNotes
-
-
-# @app.route("/test", methods=["GET"])
-# def try_once():
-#     return render_template(
-#         "test.html",
-#         ks=get_data(),
-#     )
-
-
-# @app.route("/test/<key>", methods=["GET"])
-# def try_get(key):
-#     print(key)
-#     return render_template(
-#         "test.html",
-#         ks=get_data(),
-#         notes=get_scale_notes(),
-#         key=key,
-#     )
-
-
-def play_note():
-    picked = mongo.db.keys.find_one({"keySig": key})
-    key = picked["keySig"]
-    string = "./media/{}.wav".format(key)
-    print(string)
-    return string
-
-
 @app.route("/", methods=["GET", "POST"])
 def load_the_page():
     return render_template(
@@ -91,31 +47,36 @@ def harmony(key):
     picked = mongo.db.keys.find_one({"keySig": key})
     Keynotes = picked["notes"]
     key = picked["keySig"]
+    print("one")
     return render_template(
         "index.html",
         # sk=pick_your_key(),
         Keynotes=Keynotes,
         ks=get_data(),
         key=key,
+        root=get_root(),
     )
 
 
-# @app.route("/harmony/<key>", methods=["POST", "GET"])
-# def play(key):
-#     picked = mongo.db.keys.find_one({"keySig": key})
-#     Keynotes = picked["notes"]
-#     key = picked["keySig"]
-#     string = "./media/{}.wav".format(key)
-#     playsound(string)
-#     print(key)
-#     return render_template(
-#         "index.html",
-#         play=play,
-#         # sk=pick_your_key(),
-#         Keynotes=Keynotes,
-#         ks=get_data(),
-#         key=key,
-#     )
+def get_root():
+    root = request.form.get("rootSelect")
+    print(root)
+    return root
+
+
+# @app.route("/play_note/<key>", methods=["GET", "POST"])
+# def play_note(key):
+#     picked_root = []
+#     if request.method == "POST":
+#         picked_root = request.form.get("rootSelect")
+#         print([picked_root])
+#         picked = mongo.db.keys.find_one({"keySig": key})
+#         Keynotes = picked["notes"]
+#         print("two")
+#         return render_template("index.html", Keynotes=Keynotes, key=key)
+
+
+# playsound("./media/C.wav")
 
 
 if __name__ == "__main__":
