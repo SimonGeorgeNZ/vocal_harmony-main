@@ -55,28 +55,26 @@ def harmony(key):
         ks=get_data(),
         key=key,
         root=get_root(),
+        path=file_path(),
     )
 
 
 def get_root():
     root = request.form.get("rootSelect")
-    print(root)
-    return root
+    if request.method == "POST":
+        print(root)
+        return root
 
 
-# @app.route("/play_note/<key>", methods=["GET", "POST"])
-# def play_note(key):
-#     picked_root = []
-#     if request.method == "POST":
-#         picked_root = request.form.get("rootSelect")
-#         print([picked_root])
-#         picked = mongo.db.keys.find_one({"keySig": key})
-#         Keynotes = picked["notes"]
-#         print("two")
-#         return render_template("index.html", Keynotes=Keynotes, key=key)
-
-
-# playsound("./media/C.wav")
+def file_path():
+    if request.method == "POST":
+        root = get_root()
+        first = "./media/"
+        second = ".wav"
+        result = first + root + second
+        print(result)
+        playsound(result)
+        return result
 
 
 if __name__ == "__main__":

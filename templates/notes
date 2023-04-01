@@ -69,3 +69,15 @@
 #         notes=get_scale_notes(),
 #         key=key,
 #     )
+
+
+# @app.route("/play_note/<key>", methods=["GET", "POST"])
+    # def play_note(key):
+    #     picked_root = []
+    #     if request.method == "POST":
+    #         picked_root = request.form.get("rootSelect")
+    #         print([picked_root])
+    #         picked = mongo.db.keys.find_one({"keySig": key})
+    #         Keynotes = picked["notes"]
+    #         print("two")
+    #         return render_template("index.html", Keynotes=Keynotes, key=key)
