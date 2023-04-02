@@ -1,14 +1,26 @@
 const buttons = document.getElementsByName('rootSelect');
+// const show1 = document.getElementsByName('showdivs');
 
 buttons.forEach(button => {
     button.addEventListener('click', handleClick, false);
 });
+// show1.forEach(button => {
+//     button.addEventListener('click', handleClick, true);
+// });
 
 function handleClick() {
     document.getElementById('root_Select').style.display = "block";
-
+    // document.getElementById('root_Select').style.display = "block".e.preventDefault();
+    // document.getElementById('rootblock').style.display = "block".e.preventDefault();
 
 }
+
+
+
+
+
+
+
 
 
 // function handleClick() {
