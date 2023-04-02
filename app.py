@@ -42,27 +42,31 @@ def load_the_page():
     )
 
 
+# def set_key(key):
+#     picked = mongo.db.keys.find_one({"keySig": key})
+#     key = picked["keySig"]
+#     return key
+
+
 @app.route("/harmony/<key>", methods=["POST", "GET"])
 def harmony(key):
     picked = mongo.db.keys.find_one({"keySig": key})
+    result = file_path()
     Keynotes = picked["notes"]
     key = picked["keySig"]
-    print("one")
     return render_template(
         "index.html",
-        # sk=pick_your_key(),
+        key=key,
         Keynotes=Keynotes,
         ks=get_data(),
-        key=key,
         root=get_root(),
-        path=file_path(),
+        result=result,
     )
 
 
 def get_root():
     root = request.form.get("rootSelect")
     if request.method == "POST":
-        print(root)
         return root
 
 
@@ -72,9 +76,49 @@ def file_path():
         first = "./media/"
         second = ".wav"
         result = first + root + second
-        print(result)
         playsound(result)
         return result
+
+
+# @app.route("/tone/<key>", methods=["POST", "GET"])
+# def tone(key):
+#     picked = mongo.db.keys.find_one({"keySig": key})
+#     Keynotes = picked["notes"]
+#     key = picked["keySig"]
+#     return render_template(
+#         "index.html",
+#         ks=get_data(),
+#         root=get_root(),
+#         harm=get_harm_notes(),
+#         key=key,
+#         Keynotes=Keynotes,
+#     )
+
+
+def get_harm(key):
+    picked = mongo.db.keys.find_one({"keySig": key})
+    key = picked["keySig"]
+    Keynotes = picked["notes"]
+    path = file_path()
+    compare = start + {{note}} + end
+    start = "./media/"
+    end = ".wav"
+    print(compare)
+    return Keynotes
+
+
+@app.route("/harmony_notes/<key>", methods=["POST", "GET"])
+def get_harm_notes(key):
+    picked = mongo.db.keys.find_one({"keySig": key})
+    Keynotes = picked["notes"]
+    key = picked["keySig"]
+    if request.method == "POST":
+        return render_template(
+            "index.html",
+            ks=get_data(),
+            root=get_root(),
+            Keynotes=Keynotes,
+        )
 
 
 if __name__ == "__main__":
