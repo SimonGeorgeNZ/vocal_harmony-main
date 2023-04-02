@@ -61,6 +61,7 @@ def harmony(key):
         ks=get_data(),
         root=get_root(),
         result=result,
+        locked=False,
     )
 
 

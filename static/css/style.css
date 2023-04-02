@@ -56,3 +56,7 @@
 .noteselect {
     justify-content: center;
 }
+
+#root_Select {
+    display: none;
+}

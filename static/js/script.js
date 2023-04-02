@@ -1,8 +1,14 @@
-// const buttons = document.getElementsByName('keySig');
+const buttons = document.getElementsByName('rootSelect');
 
-// buttons.forEach(button => {
-//   button.addEventListener('click', handleClick, false);
-// });
+buttons.forEach(button => {
+    button.addEventListener('click', handleClick, false);
+});
+
+function handleClick() {
+    document.getElementById('root_Select').style.display = "block";
+
+
+}
 
 
 // function handleClick() {
@@ -22,4 +28,3 @@
 //     }
 
 //   }
-
