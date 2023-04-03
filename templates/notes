@@ -81,3 +81,34 @@
     #         Keynotes = picked["notes"]
     #         print("two")
     #         return render_template("index.html", Keynotes=Keynotes, key=key)
+
+
+    # playedNotes = request.form.get("harmSelect")
+    # for a in playedNotes:
+    # print(a)
+    # print(x)
+    # print(compare)
+
+
+    @app.route("/test/<key>", methods=["POST", "GET"])
+        def try_get(key):
+            picked = mongo.db.keys.find_one({"keySig": key})
+            key = picked["keySig"]
+            Keynotes = picked["notes"]
+             playedNotes = request.form.get("harmSelect")
+            if request.method == "POST":
+                for x in Keynotes:
+                    note = x
+                    one = "./media/"
+                    two = ".wav"
+                    compare = one + note + two
+            return render_template(
+                "index.html",
+                Keynotes=Keynotes,
+                ks=get_data(),
+                key=key,
+            )
+
+           
+
+           
