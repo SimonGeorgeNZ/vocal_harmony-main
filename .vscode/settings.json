@@ -23,14 +23,15 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Visual Studio Dark",
+   "workbench.colorTheme": "Default Dark+",
    "editor.defaultFormatter": "HookyQR.beautify",
    "python.formatting.provider": "black",
    "[python]": {
       "editor.defaultFormatter": "ms-python.python"
    },
    "workbench.editorAssociations": {
-      "*.wav": "wavPreview.audioPreview"
+      "*.wav": "wavPreview.audioPreview",
+      "*.pyc": "default"
    },
    "python.analysis.typeCheckingMode": "basic",
 }

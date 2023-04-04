@@ -3,6 +3,7 @@ from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from playsound import playsound
+import simpleaudio as sa
 from os import path
 
 if path.exists("env.py"):
@@ -21,6 +22,9 @@ MONGO_DBNAME = os.environ.get("MONGO_DBNAME")
 
 # Finds all keys in Mongo and displays them in the dropdown menu#
 # Adds the keySig attribute from DB as the buttons value#
+
+
+play_obj = sa.play_buffer("./media/C.wav", 2, 2, 44100)
 
 
 def get_data():
@@ -58,7 +62,7 @@ def all_info(key):
 
 @app.route("/harmony/<key>", methods=["POST", "GET"])
 def harmony(key):
-    # path = file_path()
+    path = file_path()
     key = set_key(key)
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
@@ -69,7 +73,7 @@ def harmony(key):
         key=key,
         ks=get_data(),
         root=get_root(),
-        # path=path,
+        path=path,
     )
 
 
@@ -79,17 +83,18 @@ def harmony(key):
 def get_root():
     root = request.form.get("rootSelect")
     if request.method == "POST":
-        return root
+        print(root)
+    return root
 
 
-# def file_path():
-#     if request.method == "POST":
-#         root = get_root()
-#         first = "./media/"
-#         second = ".wav"
-#         result = first + root + second
-#         playsound(result)
-#         return result
+def file_path():
+    if request.method == "POST":
+        root = get_root()
+        first = "./media/"
+        second = ".wav"
+        result = first + root + second
+        playsound(result)
+        return result
 
 
 # @app.route("/tone/<key>", methods=["POST", "GET"])
@@ -107,36 +112,42 @@ def get_root():
 #     )
 
 
-def get_harm(key):
-    picked = mongo.db.keys.find_one({"keySig": key})
-    key = picked["keySig"]
-    Keynotes = picked["notes"]
-    # path = file_path()
-    # print(path)
-    # note = "A"
-    # compare = start + note + end
-    # start = "./media/"
-    # end = ".wav"
-    return Keynotes
+# def get_harm(key):
+#     picked = mongo.db.keys.find_one({"keySig": key})
+#     key = picked["keySig"]
+#     Keynotes = picked["notes"]
+#     # path = file_path()
+#     # print(path)
+#     # note = "A"
+#     # compare = start + note + end
+#     # start = "./media/"
+#     # end = ".wav"
+#     return Keynotes
 
 
-@app.route("/harmony_notes/<key>", methods=["POST", "GET"])
-def get_harm_notes(key):
-    key = set_key(key)
-    get_notes = all_info(key)
-    Keynotes = get_notes["notes"]
-    string = "harmSelect"
-    if request.method == "POST":
-        for x in Keynotes:
-            inputname = string + x
-            formname = request.form.get(inputname)
-            print(formname)
-    return render_template(
-        "index.html",
-        ks=get_data(),
-        Keynotes=Keynotes,
-        key=key,
-    )
+# @app.route("/harmony_notes/<key>", methods=["POST", "GET"])
+# def get_harm_notes(key):
+#     key = set_key(key)
+#     get_notes = all_info(key)
+#     Keynotes = get_notes["notes"]
+#     string = "harmSelect"
+#     if request.method == "POST":
+#         for x in Keynotes:
+#             note = x
+#             inputname = string + note
+#             print(inputname)
+#             formname = request.form.get(inputname)
+#             start = "./media/"
+#             end = ".wav"
+#         new_path = start + formname + end
+#         playsound(new_path, block=False)
+#         print(formname)
+#     return render_template(
+#         "index.html",
+#         ks=get_data(),
+#         Keynotes=Keynotes,
+#         key=key,
+#     )
 
 
 # @app.route("/harmony/<key>", methods=["POST", "GET"])
