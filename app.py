@@ -63,29 +63,32 @@ def all_info(key):
 def get_key(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
-
+    key = set_key(key)
     ks = get_data()
     return render_template(
         "select_root.html",
         gn=get_notes,
         Keynotes=Keynotes,
-        key=set_key(key),
         ks=ks,
+        key=key,
     )
 
 
-@app.route("/root/<key>/<note>", methods=["POST", "GET"])
-def root(key, note):
-    base = request.form.get("rootSelect")
-    note = base
+@app.route("/root/<key>>", methods=["POST", "GET"])
+def root(key):
     get_notes = all_info(key)
+    Keynotes = get_notes["notes"]
+    key = set_key(key)
+    if request.method == "POST":
+        note = request.form.get("rootSelect")
+        print(note)
     return render_template(
         "root.html",
-        note=note,
-        Keynotes=get_notes["notes"],
+        key=key,
+        Keynotes=Keynotes,
         sk=set_key(key),
-        key=set_key(key),
         ks=get_data(),
+        note=note,
         # path=file_path(),
     )
 
