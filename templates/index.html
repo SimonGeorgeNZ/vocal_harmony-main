@@ -24,7 +24,7 @@
                     <div class="btn-group keyButton">
                         <button class="btn btn-secondary btn-lg dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
-                            Pick your key
+                            Pick your key - index
                         </button>
                         <ul class="dropdown-menu">
                             <form method="GET">
@@ -32,7 +32,7 @@
                                 
 
                                 <li><a class="dropdown-item text-center" value="{{ keys.keySig }}" name="keySig"
-                                        href="{{url_for('harmony', key=keys.keySig)}}"
+                                        href="{{url_for('get_key', key=keys.keySig)}}"
                                         class="brand-logo">{{ keys.keySig }}</a></li>
 
                                 {% endfor %}
@@ -53,58 +53,7 @@
             </div>
 
 
-            <div class="notesHeader" id="rootblock">
-
-                <form method="post" action="{{url_for('harmony', key=key)}}">
-                    <div class="row">
-                        <h1 class="text-center">Pick your root note</h1>
-
-                        <div class="col-11 notesSection">
-                            {% for each in Keynotes %}
-
-
-                            <div class="form-check form-check-inline noteselect">
-
-                                <input name="rootSelect" class="form-check-input" type="radio"
-                                    id="inlineRootCheckbox" value="{{ each }}">
-                                <label class="form-check-label" for="inlineRootCheckbox">{{ each }}</label>
-                            </div>
-
-                            {% endfor %}
-                        </div>
-
-                        <div class="col-1">
-                            <button type="submit" id="root_Select"
-                                class="play_root btn btn-primary btn-lg">Submit</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-
-            <!---->
-            <div class="notesHeader" id="notesblock">
-                <form method="POST" action="{{url_for('get_harm_notes', key=key)}}">
-                    <div class="row">
-                        <h1 class="text-center">Select notes for harmony</h1>
-                        <div class="col-11 notesSection">
-
-                            {% for notes in Keynotes %}
-                            <div class="form-check form-check-inline noteselect">
-
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox{{ notes }}"
-                                    value="{{ notes }}" name="harmSelect{{notes}}">
-                                <label class="form-check-label" for="inlineCheckbox">{{ notes }}</label>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <div class="col-1">
-                            <button type="submit" id="harmSelect"
-                                class="play_root btn btn-primary btn-lg">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            {% block content %} {% endblock %}
 
             <!---->
         </div>

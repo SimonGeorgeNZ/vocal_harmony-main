@@ -23,7 +23,7 @@
       "**/CVS": true
    },
    "files.autoSave": "off",
-   "workbench.colorTheme": "Default Dark+",
+   "workbench.colorTheme": "Default High Contrast",
    "editor.defaultFormatter": "HookyQR.beautify",
    "python.formatting.provider": "black",
    "[python]": {
