@@ -61,6 +61,18 @@
     display: none;
 }
 
+.left {
+    text-align: center;
+}
+
+.right {
+    text-align: center;
+}
+
+.table {
+    min-width: 100%;
+}
+
 .new {
     padding-bottom: 100px;
     padding-left: 20px;

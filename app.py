@@ -78,16 +78,49 @@ def get_key(key):
 def root(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
-    key = set_key(key)
     if request.method == "POST":
         note = request.form.get("rootSelect")
+    string = "./media/{}.wav".format(note)
+    playsound(string)
     return render_template(
         "root.html",
         key=key,
         Keynotes=Keynotes,
         sk=set_key(key),
         ks=get_data(),
+        note=note,
     )
+    
+# def root_path(key):
+#     if request.method == "POST":
+#         note=root(key)
+#         middle= note
+#         start = "./media/"
+#         end = ".wav"
+#         result = start + middle + end
+#         print(result)
+#         return result
+    
+
+# def play(key):
+#     key = set_key(key)
+#     key = picked["keySig"]
+#     string = "./media/{}.wav".format(key)
+#     playsound(string)
+#     print(key)
+#     return playsound
+
+    
+# @app.route("/play_note/<key>", methods=["GET", "POST"])
+    # def play_note(key):
+    #     picked_root = []
+    #     if request.method == "POST":
+    #         picked_root = request.form.get("rootSelect")
+    #         print([picked_root])
+    #         picked = mongo.db.keys.find_one({"keySig": key})
+    #         Keynotes = picked["notes"]
+    #         print("two")
+    #         return render_template("index.html", Keynotes=Keynotes, key=key)
 
 
 # @app.route("/harmony/<key>", methods=["POST", "GET"])
@@ -104,16 +137,6 @@ def root(key):
 #     )
 
 
-def root_path(root):
-    if request.method == "POST":
-        root = root(key)
-        key = set_key(key)
-        first = "./media/"
-        second = ".wav"
-        result = first + root + second
-        playsound(result)
-        return result
-
 
 # @app.route("/tone/<key>", methods=["POST", "GET"])
 # def tone(key):
@@ -128,6 +151,8 @@ def root_path(root):
 #         key=key,
 #         Keynotes=Keynotes,
 #     )
+
+
 
 
 # def get_harm(key):

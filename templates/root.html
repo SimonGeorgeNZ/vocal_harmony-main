@@ -3,9 +3,9 @@
 
 <div class="notesHeader" id="rootblock">
 
-    <form method="post" >
+    <form method="POST" action="{{url_for('root', key=key)}}">
         <div class="row">
-            <h1 class="text-center">Pick your root note -</h1>
+            <h1 class="text-center">Pick your root note</h1>
 
             <div class="col-11 notesSection">
                 {% for each in Keynotes %}
@@ -35,7 +35,7 @@
         <div class="row">
             <h1 class="text-center">Select notes for harmony</h1>
             <div class="col-11 notesSection">
-
+                
                 {% for notes in Keynotes %}
                 <div class="form-check form-check-inline noteselect">
 
