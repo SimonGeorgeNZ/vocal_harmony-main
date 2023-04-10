@@ -31,7 +31,8 @@
    },
    "workbench.editorAssociations": {
       "*.wav": "wavPreview.audioPreview",
-      "*.pyc": "default"
+      "*.pyc": "default",
+      "*.exe": "default"
    },
    "python.analysis.typeCheckingMode": "basic",
 }

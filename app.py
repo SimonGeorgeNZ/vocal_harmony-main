@@ -74,22 +74,19 @@ def get_key(key):
     )
 
 
-@app.route("/root/<key>>", methods=["POST", "GET"])
+@app.route("/root/<key>/", methods=["POST", "GET"])
 def root(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
     key = set_key(key)
     if request.method == "POST":
         note = request.form.get("rootSelect")
-        print(note)
     return render_template(
         "root.html",
         key=key,
         Keynotes=Keynotes,
         sk=set_key(key),
         ks=get_data(),
-        note=note,
-        # path=file_path(),
     )
 
 
@@ -107,14 +104,15 @@ def root(key):
 #     )
 
 
-# def file_path():
-#     if request.method == "POST":
-#         # root = get_root()
-#         first = "./media/"
-#         second = ".wav"
-#         result = first + root + second
-#         playsound(result)
-#         return result
+def root_path(root):
+    if request.method == "POST":
+        root = root(key)
+        key = set_key(key)
+        first = "./media/"
+        second = ".wav"
+        result = first + root + second
+        playsound(result)
+        return result
 
 
 # @app.route("/tone/<key>", methods=["POST", "GET"])
