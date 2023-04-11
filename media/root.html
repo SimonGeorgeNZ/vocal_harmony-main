@@ -1,17 +1,12 @@
 {% extends 'index.html' %} {% block content %}
 
 
-
-
 <div class="notesHeader" id="rootblock">
-    
 
-    <form method="POST" action="{{url_for('root', key=key, root=root)}}">
-
-
+    <form method="post" >
         <div class="row">
             <h1 class="text-center">Pick your root note</h1>
-            
+
             <div class="col-11 notesSection">
                 {% for each in Keynotes %}
 
@@ -22,9 +17,9 @@
                         id="inlineRootCheckbox" value="{{ each }}">
                     <label class="form-check-label" for="inlineRootCheckbox">{{ each }}</label>
                 </div>
+
                 {% endfor %}
             </div>
-            
 
             <div class="col-1">
                 <button type="submit" id="root_Select"
@@ -35,13 +30,11 @@
 
 </div>
 
-<!--
 <div class="notesHeader" id="notesblock">
     <form method="POST" action="}">
         <div class="row">
             <h1 class="text-center">Select notes for harmony</h1>
             <div class="col-11 notesSection">
-
                 {% for notes in Keynotes %}
                 <div class="form-check form-check-inline noteselect">
 
@@ -59,5 +52,4 @@
     </form>
 </div>
 
--->
 {% endblock %}

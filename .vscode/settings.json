@@ -25,9 +25,9 @@
    "files.autoSave": "off",
    "workbench.colorTheme": "Default High Contrast",
    "editor.defaultFormatter": "HookyQR.beautify",
-   "python.formatting.provider": "black",
+   "python.formatting.provider": "none",
    "[python]": {
-      "editor.defaultFormatter": "ms-python.python"
+      "editor.defaultFormatter": "ms-python.black-formatter"
    },
    "workbench.editorAssociations": {
       "*.wav": "wavPreview.audioPreview",

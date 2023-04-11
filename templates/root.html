@@ -3,22 +3,32 @@
 
 <div class="notesHeader" id="rootblock">
 
-    <form method="POST" action="{{url_for('root', key=key)}}">
+    <form method="post"  action="{{url_for('root', key=key, root=root)}}">
         <div class="row">
-            <h1 class="text-center">Pick your root note</h1>
+            <h1 class="text-center">Pick your root note </h1>
 
             <div class="col-11 notesSection">
                 {% for each in Keynotes %}
-
-
+            
+                {% if root == each %}
                 <div class="form-check form-check-inline noteselect">
 
-                    <input name="rootSelect" class="form-check-input" type="radio"
-                        id="inlineRootCheckbox" value="{{ each }}">
+                    <input name="rootSelect" checked="true" class="form-check-input"  type="radio"
+                        id="inlineRootCheckbox" value="{{ root }}" >
+                    <label class="form-check-label" for="inlineRootCheckbox">{{ root }}</label>
+                </div>
+                
+                {% elif root != each  %}
+              
+                <div class="form-check form-check-inline noteselect">
+
+                    <input name="rootSelect" checked="false" class="form-check-input"  type="radio"
+                        id="inlineRootCheckbox" value="{{ each }}" >
                     <label class="form-check-label" for="inlineRootCheckbox">{{ each }}</label>
                 </div>
-
-                {% endfor %}
+                    {% endif %}
+                   
+                    {% endfor %}
             </div>
 
             <div class="col-1">
@@ -35,7 +45,7 @@
         <div class="row">
             <h1 class="text-center">Select notes for harmony</h1>
             <div class="col-11 notesSection">
-                
+
                 {% for notes in Keynotes %}
                 <div class="form-check form-check-inline noteselect">
 
