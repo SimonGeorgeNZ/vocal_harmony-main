@@ -18,7 +18,7 @@ app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 
 MONGO_URI = os.environ.get("MONGO_URI")
-MONGO_DBNAME = os.environ.get("MONGO_DBNAME")
+MONGO_DBNAME = os.environ.get("MONGO_DBNAME") 
 
 
 # Finds all keys in Mongo and displays them in the dropdown menu#
@@ -60,6 +60,7 @@ def all_info(key):
 
 
 @app.route("/get_key/<key>/", methods=["POST", "GET"])
+
 def get_key(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
@@ -71,26 +72,38 @@ def get_key(key):
         Keynotes=Keynotes,
         ks=ks,
         key=key,
+        root = request.form.get("rootSelect"),
     )
 
 
-@app.route("/root/<key>/", methods=["POST", "GET"])
-def root(key):
+@app.route("/root/<key>/<root>/", methods=["POST", "GET"])
+def root(key,root):
+    root = request.form.get("rootSelect")
+    test=moveon(key, root)
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
     if request.method == "POST":
-        note = request.form.get("rootSelect")
-    string = "./media/{}.wav".format(note)
-    playsound(string)
+        string = "./media/{}.wav".format(root)
+        playsound(string)
     return render_template(
         "root.html",
         key=key,
         Keynotes=Keynotes,
         sk=set_key(key),
         ks=get_data(),
-        note=note,
+        root=root,
     )
     
+def moveon(key, root):
+    url=request.base_url
+    if "root" in url:
+        root=request.form.get("rootSelect")
+        print(root)
+    return (print())
+
+            
+    
+        
 # def root_path(key):
 #     if request.method == "POST":
 #         note=root(key)
