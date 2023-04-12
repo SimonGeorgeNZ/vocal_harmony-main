@@ -6,7 +6,7 @@
 <div class="notesHeader" id="rootblock">
     
 
-    <form method="POST" action="{{url_for('root', key=key, root=root)}}">
+    <form method="POST" action="{{url_for('pick_root', key=key)}}">
 
 
         <div class="row">
@@ -18,16 +18,16 @@
 
                 <div class="form-check form-check-inline noteselect">
 
-                    <input name="rootSelect" class="form-check-input" type="radio"
+                    <input name="rootSelect" {%if each == root %} checked {%endif%} class="form-check-input" type="radio"
                         id="inlineRootCheckbox" value="{{ each }}">
                     <label class="form-check-label" for="inlineRootCheckbox">{{ each }}</label>
                 </div>
                 {% endfor %}
             </div>
-            
 
-            <div class="col-1">
-                <button type="submit" id="root_Select"
+            
+            <div class="col-1" >
+                <button type="submit" id="root_Select" 
                     class="play_root btn btn-primary btn-lg">Submit</button>
             </div>
         </div>

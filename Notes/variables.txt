@@ -1,0 +1,10 @@
+get_data() - Everything for every key
+
+set_key(key) - Gets key selection
+
+all_info(key) - All info for your key
+
+get_notes = all_info(key) - As above
+
+Keynotes = get_notes["notes"] - Just key notes
+
