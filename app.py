@@ -97,10 +97,17 @@ def pick_root(key):
 
 @app.route("/root/<key>/", methods=["POST", "GET"])
 def harmonykeys(Keynotes):
+    harmlist = []
+    counter = 0
     for x in Keynotes:
         harmkeys = request.form.get(x)
         if harmkeys:
-            print(harmkeys)
+            string = "./media/{}.wav".format(harmkeys)
+            harmlist.append(string)
+    for i in harmlist:
+        counter = counter + 1
+    print(counter)
+    print(harmlist)
     return render_template(
         "root.html",
         Keynotes=Keynotes,
