@@ -123,3 +123,22 @@ mixed1  = mixed.overlay(audio3)          #Further combine , superimpose audio fi
 #If you need to save mixed file
 mixed1.export("mixed.wav", format='wav') #export mixed  audio file
 play(mixed1)                             #play mixed audio file
+
+@app.route("/root/<key>/", methods=["POST", "GET"])
+def harmonykeys(Keynotes):
+    harmlist = []
+    counter = 0
+    for x in Keynotes:
+        harmkeys = request.form.get(x)
+        if harmkeys:
+            string = "./media/{}.wav".format(harmkeys)
+            harmlist.append(string)
+    for i in harmlist:
+        counter = counter + 1
+    print(counter)
+    print(harmlist)
+
+    return render_template(
+        "root.html",
+        Keynotes=Keynotes,
+    )

@@ -3,8 +3,12 @@ from flask import Flask, render_template, request
 from flask import Flask
 from flask_pymongo import PyMongo
 from playsound import playsound
+from pydub import AudioSegment
 from bson.objectid import ObjectId
 from os import path
+
+
+ads = AudioSegment
 
 
 if path.exists("env.py"):
@@ -93,7 +97,9 @@ def pick_root(key):
         root=root,
         harms=harmonykeys(Keynotes),
     )
+    
 
+          
 
 @app.route("/root/<key>/", methods=["POST", "GET"])
 def harmonykeys(Keynotes):
@@ -106,8 +112,17 @@ def harmonykeys(Keynotes):
             harmlist.append(string)
     for i in harmlist:
         counter = counter + 1
-    print(counter)
-    print(harmlist)
+        # callable(getattr(AudioSegment, .from_wav))
+        
+        print(getattr(.from_wav, AudioSegment.from_file)("string"))
+    # newstr = "AudioSegment.from_file({})".format(i)
+    # audio = "audio{}".format(counter)
+    # name = audio + "= " + newstr
+    # print(name)
+    # print(harmlist)
+    # newstr.export("./created/mixed.wav", format="wav")
+    # playsound("./created/mixed.wav")
+
     return render_template(
         "root.html",
         Keynotes=Keynotes,
