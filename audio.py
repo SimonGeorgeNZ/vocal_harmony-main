@@ -1,39 +1,50 @@
 from pydub import AudioSegment
 from playsound import playsound
+from app import set_key
 
 # test = harmonykeys("keynotes")
 
-print(test)
-
-# string = "./media/{}.wav".format(test)
-
-# audio1 = AudioSegment.from_file("./media/E.wav")
-
-# audio2 = AudioSegment.from_file("./media/F#.wav")
-# audio3 = AudioSegment.from_file("./media/G#.wav")
-# audio4 = AudioSegment.from_file("./media/C.wav")
-# audio5 = AudioSegment.from_file("./media/A.wav")
-# audio6 = AudioSegment.from_file("./media/Eb.wav")
-# audio7 = AudioSegment.from_file("./media/B.wav")
+# print(test)
 
 
-# mixed = (
-#     audio1.overlay(audio2)
-#     .overlay(audio3)
-#     .overlay(audio4)
-#     .overlay(audio5)
-#     .overlay(audio6)
-#     .overlay(audio7)
-# )
+test1 = "A"
+test2 = "C"
+test3 = "D#"
+test4 = "F"
 
-# @classmethod
+string1 = "./media/{}.wav".format(test1)
+string2 = "./media/{}.wav".format(test2)
+string3 = "./media/{}.wav".format(test3)
+string4 = "./media/{}.wav".format(test4)
+
+
+audio1 = AudioSegment.from_file(string1)
+audio2 = AudioSegment.from_file(string2)
+audio3 = AudioSegment.from_file(string3)
+audio4 = AudioSegment.from_file(string4)
+
+
+mixed = audio1.overlay(audio2).overlay(audio3).overlay(audio4)
+
+#     @classmethod
 #     def from_wav(cls, file, parameters=None):
-#         return cls(AudioSegment ,'wav', parameters=parameters)
-test = "C#"
-file = "./media/{}.wav".format(test)
-AS = AudioSegment
+#         return cls.from_file(file, 'wav', parameters=parameters)
 
-print(AS)
+# class AudioSegment()
+# @classmethod
+# def from_file(cls, file, format=None, codec=None, parameters=None, start_second=None, duration=None, **kwargs):
+#     orig_file = file
+
+
+# test1 = "D"
+# file = "./media/{}.wav".format(test1)
+# # AS = AudioSegment()
+
+# test = AudioSegment.from_file(file)
+# print(test())
+
+
+# print(file)
 
 mixed.export("./created/mixed.wav", format="wav")  # export mixed  audio file
 

@@ -97,9 +97,7 @@ def pick_root(key):
         root=root,
         harms=harmonykeys(Keynotes),
     )
-    
 
-          
 
 @app.route("/root/<key>/", methods=["POST", "GET"])
 def harmonykeys(Keynotes):
@@ -113,8 +111,8 @@ def harmonykeys(Keynotes):
     for i in harmlist:
         counter = counter + 1
         # callable(getattr(AudioSegment, .from_wav))
-        
-        print(getattr(.from_wav, AudioSegment.from_file)("string"))
+
+        # print(getattr(.from_wav, AudioSegment.from_file)("string"))
     # newstr = "AudioSegment.from_file({})".format(i)
     # audio = "audio{}".format(counter)
     # name = audio + "= " + newstr
