@@ -19,6 +19,7 @@ string4 = "./media/{}.wav".format(test4)
 
 
 audio1 = AudioSegment.from_file(string1)
+print(audio1)
 audio2 = AudioSegment.from_file(string2)
 audio3 = AudioSegment.from_file(string3)
 audio4 = AudioSegment.from_file(string4)

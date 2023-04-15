@@ -8,9 +8,6 @@ from bson.objectid import ObjectId
 from os import path
 
 
-ads = AudioSegment
-
-
 if path.exists("env.py"):
     import env
 
@@ -95,36 +92,92 @@ def pick_root(key):
         ks=ks,
         Keynotes=Keynotes,
         root=root,
-        harms=harmonykeys(Keynotes),
+        harmkeys=getHarmonyKeys(Keynotes),
     )
 
 
+# def file_path(Keynotes):
+#     notes = getHarmList(Keynotes)
+#     # print(notes)
+#     if notes:
+#         for y in notes:
+#             newStr = "./media/{}.wav".format(y)
+#             print(newStr)
+#             return newStr
+
+
 @app.route("/root/<key>/", methods=["POST", "GET"])
-def harmonykeys(Keynotes):
+def getHarmonyKeys(Keynotes):
     harmlist = []
     counter = 0
     for x in Keynotes:
         harmkeys = request.form.get(x)
         if harmkeys:
-            string = "./media/{}.wav".format(harmkeys)
-            harmlist.append(string)
+            harmlist.append(x)
     for i in harmlist:
         counter = counter + 1
-        # callable(getattr(AudioSegment, .from_wav))
-
-        # print(getattr(.from_wav, AudioSegment.from_file)("string"))
-    # newstr = "AudioSegment.from_file({})".format(i)
-    # audio = "audio{}".format(counter)
-    # name = audio + "= " + newstr
-    # print(name)
-    # print(harmlist)
-    # newstr.export("./created/mixed.wav", format="wav")
-    # playsound("./created/mixed.wav")
+        name = "audio{}".format(counter)
+        print(name)
+        string = "./media/{}.wav".format(i)
+        print(string)
+        name = AudioSegment.from_file(string)
+        print(name)
 
     return render_template(
         "root.html",
-        Keynotes=Keynotes,
     )
+    # print(counter)
+    # print(harmlist)
+
+    # stringlist = []
+    # stringvar = "string{}"
+
+    #     @app.route("/root/<key>/", methods=["POST", "GET"])
+    # def getHarmonyKeys(Keynotes):
+    #     print(harmkeys)
+    # fname = name.format(counter)  #  audio1 #
+    # print(harmlist)
+    # filelb = stringvar.format(counter)  # string1 #
+    # string = "./media/{}.wav".format(harmkeys)  # file string #
+    # stringlist.append(string)
+    # for file in stringlist:
+    #     print(file)
+    # for harm in harmlist:
+    #     print(harm)
+    #     harm = AudioSegment.from_file(file)
+    #     harm.export("./created/harm.wav", format="wav")
+    #     playsound("./created/harm.wav")
+    return render_template(
+        "root.html",
+    )
+
+
+# @app.route("/root/<key>/", methods=["POST", "GET"])
+# def harmonykeys(Keynotes):
+#     harmlist = []
+#     counter = 0
+#     for x in Keynotes:
+#         harmkeys = request.form.get(x)
+#         if harmkeys:
+#             string = "./media/{}.wav".format(harmkeys)
+#             harmlist.append(string)
+#     for i in harmlist:
+#         counter = counter + 1
+# callable(getattr(AudioSegment, .from_wav))
+
+# print(getattr(.from_wav, AudioSegment.from_file)("string"))
+# newstr = "AudioSegment.from_file({})".format(i)
+# audio = "audio{}".format(counter)
+# name = audio + "= " + newstr
+# print(name)
+# print(harmlist)
+# newstr.export("./created/mixed.wav", format="wav")
+# playsound("./created/mixed.wav")
+
+# return render_template(
+#     "root.html",
+#     Keynotes=Keynotes,
+# )
 
 
 if __name__ == "__main__":
