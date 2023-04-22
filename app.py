@@ -6,6 +6,7 @@ from os import path
 from flask import Flask, render_template, request, Response, redirect, url_for
 from flask_pymongo import PyMongo
 from pydub import AudioSegment
+from pydub.playback import play
 from playsound import playsound
 from bson.objectid import ObjectId
 
@@ -99,12 +100,13 @@ def pick_root(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
     root = request.form.get("rootSelect")
-    getHarmonyKeys(key)
     if request.method == "POST":
-        filename = f"./media/{root}.wav"
-        wave_obj = sa.WaveObject.from_wave_file(filename)
-        play_obj = wave_obj.play()
-        play_obj.wait_done
+        rootfile = f"media/{root}.wav"
+        # playroot = AudioSegment.from_file(string)
+        # playroot.export("./created/mixed.wav", format="wav")
+        root_obj = sa.WaveObject.from_wave_file(rootfile)
+        root_play_obj = root_obj.play()
+        root_play_obj.wait_done
     return render_template(
         "root.html",
         root=root,
@@ -117,52 +119,59 @@ def pick_root(key):
 @app.route("/root_2/<key>/", methods=["POST", "GET"])
 def getHarmonyKeys(key):
     root = request.form.get("rootSelect")
+    counter = 0
     ks = get_data()
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
-    # titlelist = (
-    #     "audio1",
-    #     "audio2",
-    #     "audio3",
-    #     "audio4",
-    #     "audio5",
-    #     "audio6",
-    #     "audio7",
-    #     "audio8",
-    # )
     harmlist = []
-    # counter = 0
 
     for x in Keynotes:
         harmkeys = request.form.get(x)
         if harmkeys:
             harmlist.append(harmkeys)
     for i in harmlist:
-        # counter = counter + 1
+        counter = counter + 1
+        n = counter
         Hstring = "media/{}.wav".format(i)
-        print(Hstring)
-        wave_obj = sa.WaveObject.from_wave_file(Hstring)
-        play_obj = wave_obj.play()
-        play_obj.wait_done
-        # n = counter
-        # titlekey = f"audio{n}"
-        # title = titlelist[n - 1]
-        # print(title)
-
-        # usedtitles = []
-        # usedtitles.append(title)
-        # title = AudioSegment.from_file(Hstring)
-        # mixed = title.overlay(title).overlay(title).overlay(title)
-        # title.export("created/mixed.wav", format="wav")
-        # print(Hstring)
-
-        # sleep(0.5)
-        # string = "created/mixed.wav"
-        # playsound(string)
-        # rootfile = f"./media/{root}.wav"
-        # filename = "./created/mixed.wav"
-
-        # wave_obj = sa.WaveObject.from_wave_file(rootfile)
+        title = "audio{}".format(n)
+        print(title)
+        print(counter)
+        if counter == 1:
+            audio1 = AudioSegment.from_file(Hstring)
+            fileroot = f"./media/{root}.wav"
+            roottrack = AudioSegment.from_file(fileroot)
+            mixedroot = audio1.overlay(roottrack)
+            mixedroot.export("created/mixed.wav", format="wav")
+        if counter == 2:
+            audio2 = AudioSegment.from_file(Hstring)
+            mixed = mixedroot.overlay(audio2)
+            mixed.export("created/mixed.wav", format="wav")
+        if counter == 3:
+            print(Hstring)
+            audio3 = AudioSegment.from_file(Hstring)
+            mixed2 = mixed.overlay(audio3)
+            mixed2.export("created/mixed.wav", format="wav")
+        if counter == 4:
+            audio4 = AudioSegment.from_file(Hstring)
+            mixed3 = mixed2.overlay(audio4)
+            mixed3.export("created/mixed.wav", format="wav")
+        if counter == 5:
+            print(Hstring)
+            audio5 = AudioSegment.from_file(Hstring)
+            mixed4 = mixed3.overlay(audio5)
+            mixed4.export("created/mixed.wav", format="wav")
+        if counter == 6:
+            audio6 = AudioSegment.from_file(Hstring)
+            mixed5 = mixed4.overlay(audio6)
+            mixed5.export("created/mixed.wav", format="wav")
+        if counter == 7:
+            audio7 = AudioSegment.from_file(Hstring)
+            mixed6 = mixed5.overlay(audio7)
+            mixed6.export("created/mixed.wav", format="wav")
+    filename = "created/mixed.wav"
+    wave_obj = sa.WaveObject.from_wave_file(filename)
+    play_obj = wave_obj.play()
+    play_obj.wait_done
 
     return render_template(
         "root.html",
