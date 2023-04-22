@@ -11,6 +11,24 @@ function handleClick() {
 
 }
 
+// function isfile() {
+//     getfile = ("./created/mixed.wav")
+//     if (file === true) {
+//         console.log("yes")
+//     }
+// }
+
+
+
+
+function deleteFile() {
+    var myObject;
+    myObject = FileSystemDirectoryEntry.getfile(path, "./created/mixed.wav").deleteFile
+}
+
+
+
+
 
 
 

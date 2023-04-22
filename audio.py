@@ -1,52 +1,42 @@
 from pydub import AudioSegment
-from playsound import playsound
-from app import set_key
-
-# test = harmonykeys("keynotes")
-
-# print(test)
+import wave
+from time import sleep
+import simpleaudio as sa
 
 
-test1 = "A"
-test2 = "C"
-test3 = "D#"
-test4 = "F"
+# test1 = "B"
+# test2 = "F#"
+# test3 = "Db"
+# test4 = "G"
 
-string1 = "./media/{}.wav".format(test1)
-string2 = "./media/{}.wav".format(test2)
-string3 = "./media/{}.wav".format(test3)
-string4 = "./media/{}.wav".format(test4)
-
-
-audio1 = AudioSegment.from_file(string1)
-print(audio1)
-audio2 = AudioSegment.from_file(string2)
-audio3 = AudioSegment.from_file(string3)
-audio4 = AudioSegment.from_file(string4)
+# string1 = "./media/{}.wav".format(test1)
+# string2 = "./media/{}.wav".format(test2)
+# string3 = "./media/{}.wav".format(test3)
+# string4 = "./media/{}.wav".format(test4)
 
 
-mixed = audio1.overlay(audio2).overlay(audio3).overlay(audio4)
+# audio1 = AudioSegment.from_file(string1)
+# audio2 = AudioSegment.from_file(string2)
+# audio3 = AudioSegment.from_file(string3)
+# audio4 = AudioSegment.from_file(string4)
 
-#     @classmethod
-#     def from_wav(cls, file, parameters=None):
-#         return cls.from_file(file, 'wav', parameters=parameters)
-
-# class AudioSegment()
-# @classmethod
-# def from_file(cls, file, format=None, codec=None, parameters=None, start_second=None, duration=None, **kwargs):
-#     orig_file = file
+# mixed = audio1.overlay(audio2).overlay(audio3).overlay(audio4)
 
 
-# test1 = "D"
-# file = "./media/{}.wav".format(test1)
-# # AS = AudioSegment()
+# mixed.export("./created/mixed.wav", format="wav")
+# string = "./created/mixed.wav"
 
-# test = AudioSegment.from_file(file)
-# print(test())
+filename = "created/mixed.wav"
+wave_obj = sa.WaveObject.from_wave_file(filename)
+play_obj = wave_obj.play()
+play_obj.wait_done
 
+# filename1 = "./media/{}.wav".format("A")
+# filename2 = "./media/{}.wav".format("C")
+# filename3 = "./media/{}.wav".format("E")
 
-# print(file)
-
-mixed.export("./created/mixed.wav", format="wav")  # export mixed  audio file
-
-playsound("./created/mixed.wav")  # play mixed audio file
+# wave_obj = sa.WaveObject.from_wave_file(filename)
+# wave_obj = sa.WaveObject.from_wave_file(filename2)
+# wave_obj = sa.WaveObject.from_wave_file(filename3)
+# play_obj = wave_obj.play()
+# play_obj.wait_done

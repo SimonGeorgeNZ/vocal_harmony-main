@@ -4,15 +4,15 @@
 
 
 <div class="notesHeader" id="rootblock">
-    
+    <p>Select root<p>
 
-    <form method="POST" action="{{url_for('pick_root', key=key)}}">
+    <form method="post" action="{{url_for('pick_root', key=key)}}">
 
 
         <div class="row">
             <h1 class="text-center">Pick your root note</h1>
             
-            <div class="col-11 notesSection">
+            <div class="col-10 notesSection">
                 {% for each in Keynotes %}
 
 

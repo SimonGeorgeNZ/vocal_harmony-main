@@ -1,5 +1,5 @@
-from playsound import playsound
+# from playsound import playsound
 
-playsound("./media/C.wav")
+# playsound("./media/C.wav")
 
-href = "{{url_for('play_note', key=key)}}"
+# href = "{{url_for('play_note', key=key)}}"

@@ -35,4 +35,5 @@
       "*.exe": "default"
    },
    "python.analysis.typeCheckingMode": "basic",
+   "livePreview.defaultPreviewPath": "/templates/index.html",
 }

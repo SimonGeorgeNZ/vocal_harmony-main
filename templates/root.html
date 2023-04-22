@@ -2,12 +2,11 @@
 
 
 <div class="notesHeader" id="rootblock">
-
-    <form method="post"  action="{{url_for('getHarmonyKeys', key=key)}}">
+    <p>Root<p>{{ harmlist }}
+        <form method="POST"  action="{{url_for('getHarmonyKeys', key=key)}}">
         <div class="row">
             <h1 class="text-center">Pick your root note </h1>
-
-            <div class="col-11 notesSection">
+            <div class="col-10 notesSection">
                 {% for each in Keynotes %}
             
                 <div class="form-check form-check-inline noteselect">
@@ -23,24 +22,26 @@
             
         </div>
 
-
 </div>
 
 
+{% if harmlist %}
 
 <div class="notesHeader" id="notesblock">
-
+    
         <div class="row">
             <h1 class="text-center">Select notes for harmony</h1>
-            <div class="col-11 notesSection">
-
+            <div class="col-10 notesSection">
+                
                 {% for notes in Keynotes %}
+
                 <div class="form-check form-check-inline noteselect">
 
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox{{ notes }}"
-                        value="{{ notes }}" name="{{ notes }}">
-                    <label class="form-check-label" for="inlineCheckbox">{{ notes }}</label>
+                        value="{{ notes }}" name="{{ notes }}"{% for each in harmlist %} {%if each == notes %} checked {%endif%} {% endfor %}>
+                    <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }}</label>
                 </div>
+                
                 {% endfor %}
             </div>
             <div class="col-1">
@@ -50,6 +51,32 @@
         </div>
     </form>
 </div>
+{% else %}
+<div class="notesHeader" id="notesblock">
+    
+        <div class="row">
+            <h1 class="text-center">Select notes for harmony</h1>
+            <div class="col-10 notesSection">
+                {% for notes in Keynotes %}
+
+                <div class="form-check form-check-inline noteselect">
+
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox{{ notes }}"
+                        value="{{ notes }}" name="{{ notes }}" >
+                    <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }}</label>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-1">
+                
+                <button type="submit" id="harm_Select" 
+                    class="play_root btn btn-primary btn-lg">Submit</button>
+                
+            </div>
+        </div>
+    </form>
+</div>
+{% endif %}
 
 
 
