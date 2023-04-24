@@ -2,7 +2,7 @@
 
 
 <div class="notesHeader" id="rootblock">
-    <p>Root<p>{{ harmlist }}
+    
         <form method="POST"  action="{{url_for('getHarmonyKeys', key=key)}}">
         <div class="row">
             <h1 class="text-center">Pick your root note </h1>
@@ -44,6 +44,48 @@
                 
                 {% endfor %}
             </div>
+            <div class="text-center notesSection col-10">
+                <table class="table">
+                    <tr>
+                        <td class="lables" id=""> 
+                            <p>
+                                1st<br>Major<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                2nd<br>Minor<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                3rd<br>Minor<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                4th<br>Major<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                5th<br>Major<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                6th<br>Minor<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                7th<br>Dim<br>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
             <div class="col-1">
                 <button type="submit" id="harm_Select"
                     class="play_root btn btn-primary btn-lg">Submit</button>
@@ -66,6 +108,47 @@
                     <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }}</label>
                 </div>
                 {% endfor %}
+            </div>
+            <div class="text-center notesSection col-10">
+                <table class="table">
+                    <tr>
+                        <td class="lables" id=""> 
+                            <p>
+                                1st<br>Major<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                2nd<br>Minor<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                3rd<br>Minor<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                4th<br>Major<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                5th<br>Major<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                6th<br>Minor<br>
+                            </p>
+                        </td>
+                        <td class="lables" id="">
+                            <p>
+                                7th<br>Dim<br>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <div class="col-1">
                 

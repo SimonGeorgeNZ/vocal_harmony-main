@@ -1,21 +1,16 @@
 import os
-import wave
-from time import sleep
-import simpleaudio as sa
 from os import path
+import simpleaudio as sa
 from flask import Flask, render_template, request, Response, redirect, url_for
 from flask_pymongo import PyMongo
 from pydub import AudioSegment
 from pydub.playback import play
-from playsound import playsound
-from bson.objectid import ObjectId
 
 
 if path.exists("env.py"):
     import env
 
 app = Flask(__name__)
-
 
 app.config["MONGO_DBNAME"] = "vocal_harmony"
 app.config["MONGO_URI"] = os.getenv("MONGO_URI")
@@ -61,10 +56,7 @@ def set_key(key):
 
 @app.route("/")
 def index():
-    return render_template(
-        "index.html",
-        ks=get_data(),
-    )
+    return render_template("index.html", ks=get_data(), block=True)
 
 
 # Gets all info from DB needs the (key) attributed to work
@@ -78,7 +70,7 @@ def all_info(key):
 # Gets note to harmonise against#
 
 
-@app.route("/get_key/<key>/", methods=["POST", "GET"])
+@app.route("/get_key/<key>", methods=["POST", "GET"])
 def get_key(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
@@ -94,7 +86,7 @@ def get_key(key):
     )
 
 
-@app.route("/root/<key>/", methods=["POST", "GET"])
+@app.route("/root/<key>", methods=["POST", "GET"])
 def pick_root(key):
     ks = get_data()
     get_notes = all_info(key)
@@ -102,11 +94,11 @@ def pick_root(key):
     root = request.form.get("rootSelect")
     if request.method == "POST":
         rootfile = f"media/{root}.wav"
-        # playroot = AudioSegment.from_file(string)
-        # playroot.export("./created/mixed.wav", format="wav")
-        root_obj = sa.WaveObject.from_wave_file(rootfile)
-        root_play_obj = root_obj.play()
-        root_play_obj.wait_done
+        out_f = AudioSegment.from_file(rootfile)
+        play(out_f)
+        # wave_obj = sa.WaveObject.from_wave_file(rootfile)
+        # root_obj = wave_obj.play()
+        # root_obj.wait_done
     return render_template(
         "root.html",
         root=root,
@@ -116,7 +108,7 @@ def pick_root(key):
     )
 
 
-@app.route("/root_2/<key>/", methods=["POST", "GET"])
+@app.route("/root_2/<key>", methods=["POST", "GET"])
 def getHarmonyKeys(key):
     root = request.form.get("rootSelect")
     counter = 0
@@ -131,47 +123,42 @@ def getHarmonyKeys(key):
             harmlist.append(harmkeys)
     for i in harmlist:
         counter = counter + 1
-        n = counter
         Hstring = "media/{}.wav".format(i)
-        title = "audio{}".format(n)
-        print(title)
-        print(counter)
         if counter == 1:
             audio1 = AudioSegment.from_file(Hstring)
             fileroot = f"./media/{root}.wav"
             roottrack = AudioSegment.from_file(fileroot)
-            mixedroot = audio1.overlay(roottrack)
-            mixedroot.export("created/mixed.wav", format="wav")
-        if counter == 2:
-            audio2 = AudioSegment.from_file(Hstring)
-            mixed = mixedroot.overlay(audio2)
-            mixed.export("created/mixed.wav", format="wav")
-        if counter == 3:
-            print(Hstring)
-            audio3 = AudioSegment.from_file(Hstring)
-            mixed2 = mixed.overlay(audio3)
-            mixed2.export("created/mixed.wav", format="wav")
-        if counter == 4:
-            audio4 = AudioSegment.from_file(Hstring)
-            mixed3 = mixed2.overlay(audio4)
-            mixed3.export("created/mixed.wav", format="wav")
-        if counter == 5:
-            print(Hstring)
-            audio5 = AudioSegment.from_file(Hstring)
-            mixed4 = mixed3.overlay(audio5)
-            mixed4.export("created/mixed.wav", format="wav")
-        if counter == 6:
-            audio6 = AudioSegment.from_file(Hstring)
-            mixed5 = mixed4.overlay(audio6)
-            mixed5.export("created/mixed.wav", format="wav")
-        if counter == 7:
-            audio7 = AudioSegment.from_file(Hstring)
-            mixed6 = mixed5.overlay(audio7)
-            mixed6.export("created/mixed.wav", format="wav")
-    filename = "created/mixed.wav"
-    wave_obj = sa.WaveObject.from_wave_file(filename)
-    play_obj = wave_obj.play()
-    play_obj.wait_done
+            out_f = audio1.overlay(roottrack)
+            # mixedroot.export("created/mixed.wav", format="wav")
+            if counter == 2:
+                audio2 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio2)
+                # mixed.export("created/mixed.wav", format="wav")
+            if counter == 3:
+                audio3 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio3)
+                # mixed2.replace("created/mixed.wav", format="wav")
+            if counter == 4:
+                audio4 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio4)
+                # mixed3.export("created/mixed.wav", format="wav")
+            if counter == 5:
+                audio5 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio5)
+                # mixed4.export("created/mixed.wav", format="wav")
+            if counter == 6:
+                audio6 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio6)
+                # mixed5.export("created/mixed.wav", format="wav")
+            if counter == 7:
+                audio7 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio7)
+                # mixed6.export("created/mixed.wav", format="wav")
+            # filename = "created/mixed.wav"
+            # wave_obj = sa.WaveObject.from_wave_file(filename)
+            # play_obj = wave_obj.play()
+            # play_obj.wait_done
+            play(out_f)
 
     return render_template(
         "root.html",
@@ -181,45 +168,6 @@ def getHarmonyKeys(key):
         Keynotes=Keynotes,
         harmlist=harmlist,
     )
-
-
-# @app.route("/root_3/", methods=["POST", "GET"])
-# def getHarmonyKeys2():
-#     test1 = "B"
-#     test2 = "F#"
-#     test3 = "Db"
-#     test4 = "G"
-
-#     string1 = "./media/{}.wav".format(test1)
-#     string2 = "./media/{}.wav".format(test2)
-#     string3 = "./media/{}.wav".format(test3)
-#     string4 = "./media/{}.wav".format(test4)
-
-#     audio1 = AudioSegment.from_file(string1)
-#     audio2 = AudioSegment.from_file(string2)
-#     audio3 = AudioSegment.from_file(string3)
-#     audio4 = AudioSegment.from_file(string4)
-
-#     mixed = audio1.overlay(audio2).overlay(audio3).overlay(audio4)
-
-#     mixed.export("./created/mixed.wav", format="wav")  # export mixed  audio file
-#     string = "./created/mixed.wav"
-
-#     playsound(string)  # play mixed audio file
-#     return render_template(
-#         "json.html",
-#     )
-
-
-# @app.route("/json")
-# def json():
-#     return render_template("json.html")
-
-
-# @app.route("/background_process_test")
-# def background_process_test():
-#     print("Hello")
-#     return "nothing"
 
 
 if __name__ == "__main__":

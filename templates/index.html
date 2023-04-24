@@ -17,10 +17,45 @@
         <title>Vocal harmony</title>
     </head>
 
+    {% if block == True%}
+
+    <body>
+        <div class="row ">
+            <div class="col-3 header titlekey">
+
+                <div class="btn-group ">
+                    <button
+                        class="btn btn-secondary btn-lg dropdown-toggle"
+                        type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Pick your key
+                    </button>
+                    <ul class="dropdown-menu">
+                        <form method="GET">
+                            {% for keys in ks %}
+
+
+
+                            <li><a class="dropdown-item text-center"
+                                    value="{{ keys.keySig }}" name="keySig"
+                                    href="{{url_for('get_key', key=keys.keySig)}}"
+                                    class="brand-logo">{{ keys.keySig }}</a>
+                            </li>
+
+                            {% endfor %}
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    {% else %}
+
     <body>
         <div class="body">
-            <div class="row keyDD">
-                <div class="col-3 header">
+            <div class="row ">
+                <div class="col-3 header titlekey">
 
                     <div class="btn-group keyButton">
                         <button
@@ -47,7 +82,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="col-9 header">
+                <div class="col-3 header">
                     <div class="header">
                         <table class="table">
                             <tr>
@@ -61,16 +96,17 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="header">
+                    <div class="header keyIs">
                         <p id="keyIs">The notes are </p>
                         {{ Keynotes|join(', ') }}
                     </div>
                 </div>
+                <div class="col-9 header">
+
+                </div>
             </div>
 
-
-
-            {% block content %} {% endblock %}
+            {% endif %} {% block content %} {% endblock %}
 
         </div>
 
