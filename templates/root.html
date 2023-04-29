@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="col-9 header">
-        <form method="post" action=>
+        <form method="post" action="">
 
             <div class="row">
                 <h1 class="text-center">Classic harmonies</h1>
@@ -75,7 +75,11 @@
     
         <form method="POST"  action="{{url_for('getHarmonyKeys', key=key)}}">
         <div class="row">
+            {% if root %}
             <h1 class="text-center">Pick your root note </h1>
+            {%else%}
+            <h1 class="text-center">You have no root note </h1>
+            {%endif%}
             <div class="col-10 notesSection">
                 {% for each in Keynotes %}
             
@@ -160,6 +164,7 @@
                 <button type="submit" id="harm_Select"
                     class="play_root btn btn-primary btn-lg">Submit</button>
             </div>
+            <button type="reset">Clear</button>
         </div>
     </form>
 </div>
@@ -227,6 +232,7 @@
                     class="play_root btn btn-primary btn-lg">Submit</button>
                 
             </div>
+            <button type="reset">Clear</button>
         </div>
     </form>
 </div>

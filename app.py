@@ -85,9 +85,12 @@ def pick_root(key):
     Keynotes = get_notes["notes"]
     root = request.form.get("rootSelect")
     if request.method == "POST":
-        rootfile = f"media/{root}.wav"
-        out_f = AudioSegment.from_file(rootfile)
-        play(out_f)
+        if root:
+            rootfile = f"media/{root}.wav"
+            out_f = AudioSegment.from_file(rootfile)
+            play(out_f)
+        else:
+            pass
         # wave_obj = sa.WaveObject.from_wave_file(rootfile)
         # root_obj = wave_obj.play()
         # root_obj.wait_done
@@ -119,8 +122,6 @@ def getHarmonyKeys(key):
         harmkeys = request.form.get(x)
         if harmkeys:
             harmlist.append(harmkeys)
-            fileroot = f"./media/{root}.wav"
-            roottrack = AudioSegment.from_file(fileroot)
     if len(harmlist) == 0:
         return render_template(
             "root.html",
@@ -133,44 +134,46 @@ def getHarmonyKeys(key):
             typenames=typenames,
             pattern=pattern,
         )
-    for i in harmlist:
-        counter = counter + 1
-        Hstring = "media/{}.wav".format(i)
-        if counter == 1:
-            audio1 = AudioSegment.from_file(Hstring)
-            out_f = audio1.overlay(roottrack)
-        if counter == 2:
-            audio2 = AudioSegment.from_file(Hstring)
-            out_f = out_f.overlay(audio2)
-        if counter == 3:
-            audio3 = AudioSegment.from_file(Hstring)
-            out_f = out_f.overlay(audio3)
-        if counter == 4:
-            audio4 = AudioSegment.from_file(Hstring)
-            out_f = out_f.overlay(audio4)
-        if counter == 5:
-            audio5 = AudioSegment.from_file(Hstring)
-            out_f = out_f.overlay(audio5)
-        if counter == 6:
-            audio6 = AudioSegment.from_file(Hstring)
-            out_f = out_f.overlay(audio6)
-        if counter == 7:
-            audio7 = AudioSegment.from_file(Hstring)
-            out_f = out_f.overlay(audio7)
-        print(counter)
-    play(out_f)
+    else:
+        for i in harmlist:
+            counter = counter + 1
+            Hstring = "media/{}.wav".format(i)
+            if counter == 1:
+                fileroot = f"./media/{root}.wav"
+                roottrack = AudioSegment.from_file(fileroot)
+                audio1 = AudioSegment.from_file(Hstring)
+                out_f = audio1.overlay(roottrack)
+            if counter == 2:
+                audio2 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio2)
+            if counter == 3:
+                audio3 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio3)
+            if counter == 4:
+                audio4 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio4)
+            if counter == 5:
+                audio5 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio5)
+            if counter == 6:
+                audio6 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio6)
+            if counter == 7:
+                audio7 = AudioSegment.from_file(Hstring)
+                out_f = out_f.overlay(audio7)
+        play(out_f)
 
-    return render_template(
-        "root.html",
-        key=key,
-        ks=ks,
-        root=root,
-        Keynotes=Keynotes,
-        harmlist=harmlist,
-        typevoice=typevoice,
-        typenames=typenames,
-        pattern=pattern,
-    )
+        return render_template(
+            "root.html",
+            key=key,
+            ks=ks,
+            root=root,
+            Keynotes=Keynotes,
+            harmlist=harmlist,
+            typevoice=typevoice,
+            typenames=typenames,
+            pattern=pattern,
+        )
 
 
 def gettypenames():
