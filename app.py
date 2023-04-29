@@ -75,6 +75,62 @@ def get_key(key):
     )
 
 
+def gettypenames():
+    typenames = [
+        (
+            "Perfect 2nd",
+            "Perfect 4th",
+            "Perfect 5th",
+            "Perfect 6th",
+        ),
+        (
+            "Major triad",
+            "Minor triad",
+            "Diminished",
+            "Augmented",
+        ),
+        (
+            "Major sixth",
+            "Diminished 7th",
+            "Half diminished",
+            "Augmented 7th",
+        ),
+    ]
+
+    return typenames
+
+
+def gettypevoice():
+    typevoice = [
+        (
+            [0, 2],
+            [0, 5],
+            [0, 7],
+            [0, 9],
+        ),
+        (
+            [0, 4, 7],
+            [0, 3, 7],
+            [0, 3, 6],
+            [0, 4, 8],
+        ),
+        (
+            [0, 4, 7, 9],
+            [0, 3, 6, 9],
+            [0, 3, 6, 10],
+            [0, 4, 8, 10],
+        ),
+    ]
+
+    return typevoice
+
+
+def getchordpattern():
+    harmchord = request.form.get("chordSelect")
+    print(harmchord)
+    return harmchord
+
+
 @app.route("/pick_root/root/<key>", methods=["POST", "GET"])
 def pick_root(key):
     pattern = getchordpattern()
@@ -174,62 +230,6 @@ def getHarmonyKeys(key):
             typenames=typenames,
             pattern=pattern,
         )
-
-
-def gettypenames():
-    typenames = [
-        (
-            "Perfect 2nd",
-            "Perfect 4th",
-            "Perfect 5th",
-            "Perfect 6th",
-        ),
-        (
-            "Major triad",
-            "Minor triad",
-            "Diminished",
-            "Augmented",
-        ),
-        (
-            "Major sixth",
-            "Diminished 7th",
-            "Half diminished",
-            "Augmented 7th",
-        ),
-    ]
-
-    return typenames
-
-
-def gettypevoice():
-    typevoice = [
-        (
-            [0, 2],
-            [0, 5],
-            [0, 7],
-            [0, 9],
-        ),
-        (
-            [0, 4, 7],
-            [0, 3, 7],
-            [0, 3, 6],
-            [0, 4, 8],
-        ),
-        (
-            [0, 4, 7, 9],
-            [0, 3, 6, 9],
-            [0, 3, 6, 10],
-            [0, 4, 8, 10],
-        ),
-    ]
-
-    return typevoice
-
-
-def getchordpattern():
-    harmchord = request.form.get("chordSelect")
-    print(harmchord)
-    return harmchord
 
 
 two2nd = [0, 2]
