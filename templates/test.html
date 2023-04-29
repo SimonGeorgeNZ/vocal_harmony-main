@@ -1,0 +1,50 @@
+{% extends 'index.html' %} {% block chords %}
+
+
+<form method="post" action=>
+
+    <div class="row">
+        <h1 class="text-center">Classic harmonies</h1>
+
+        <h5> 2 part harmonies </h5>
+        <div class="text-center notesSection col-10">
+            {% for a in typenames[0] %} {%if typevoice[0]%}
+            <div class="form-check form-check-inline noteselect">
+
+                <input name="chordSelect" class="form-check-input" type="radio" id="inlineRootCheckbox"
+                    value="{{ typevoice[0][loop.index0]}}">
+                <label class="form-check-label" for="inlineRootCheckbox">{{ a }} </label>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+        <h5> 3 part harmonies </h5>
+        <div class="text-center notesSection col-10">
+            {% for a in typenames[1] %} {% if typevoice[1]%}
+            <div class="form-check form-check-inline noteselect">
+
+                <input name="chordSelect" class="form-check-input" type="radio" id="inlineRootCheckbox"
+                    value="{{ typevoice[1][loop.index0]}}">
+                <label class="form-check-label" for="inlineRootCheckbox">{{ a }} </label>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+        <h5> 4 part harmonies </h5>
+        <div class="text-center notesSection col-10">
+            {% for a in typenames[2] %} {% if typevoice[2]%}
+            <div class="form-check form-check-inline noteselect">
+
+                <input name="chordSelect" class="form-check-input" type="radio" id="inlineRootCheckbox"
+                    value="{{ typevoice[2][loop.index0]}}">
+                <label class="form-check-label" for="inlineRootCheckbox">{{ a }} </label>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+
+        <div class="col-1">
+            <button type="submit" id="chord_Select" class="play_root btn btn-primary btn-lg">Submit</button>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}

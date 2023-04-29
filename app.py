@@ -25,18 +25,7 @@ MONGO_DBNAME = os.environ.get("MONGO_DBNAME")
 # Finds all keys in Mongo and displays them in the dropdown menu#
 # Adds the keySig attribute from DB as the buttons value#
 
-# s = request.session()
-# s.get("http://httpbin.org/cookies/set", params={"foo": "bar"})
-# <Response [200]>
-#  s.cookies.keys()
-# ['foo']
-#  s.get('http://httpbin.org/cookies').json()
-# {u'cookies': {u'foo': u'bar'}}
-# s.cookies.clear()
-# s.cookies.keys()
-# []
-# s.get('http://httpbin.org/cookies').json()
-# {u'cookies': {}}
+notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
 
 
 def get_data():
@@ -70,7 +59,7 @@ def all_info(key):
 # Gets note to harmonise against#
 
 
-@app.route("/get_key/<key>", methods=["POST", "GET"])
+@app.route("/get_key/select_root/<key>", methods=["POST", "GET"])
 def get_key(key):
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
@@ -86,8 +75,11 @@ def get_key(key):
     )
 
 
-@app.route("/root/<key>", methods=["POST", "GET"])
+@app.route("/pick_root/root/<key>", methods=["POST", "GET"])
 def pick_root(key):
+    pattern = getchordpattern()
+    typevoice = gettypevoice()
+    typenames = gettypenames()
     ks = get_data()
     get_notes = all_info(key)
     Keynotes = get_notes["notes"]
@@ -105,11 +97,17 @@ def pick_root(key):
         key=key,
         ks=ks,
         Keynotes=Keynotes,
+        typevoice=typevoice,
+        typenames=typenames,
+        pattern=pattern,
     )
 
 
-@app.route("/root_2/<key>", methods=["POST", "GET"])
+@app.route("/getHarmonyKeys/root/<key>", methods=["POST", "GET"])
 def getHarmonyKeys(key):
+    pattern = getchordpattern()
+    typevoice = gettypevoice()
+    typenames = gettypenames()
     root = request.form.get("rootSelect")
     counter = 0
     ks = get_data()
@@ -121,44 +119,46 @@ def getHarmonyKeys(key):
         harmkeys = request.form.get(x)
         if harmkeys:
             harmlist.append(harmkeys)
+            fileroot = f"./media/{root}.wav"
+            roottrack = AudioSegment.from_file(fileroot)
+    if len(harmlist) == 0:
+        return render_template(
+            "root.html",
+            key=key,
+            ks=ks,
+            root=root,
+            Keynotes=Keynotes,
+            harmlist=harmlist,
+            typevoice=typevoice,
+            typenames=typenames,
+            pattern=pattern,
+        )
     for i in harmlist:
         counter = counter + 1
         Hstring = "media/{}.wav".format(i)
         if counter == 1:
             audio1 = AudioSegment.from_file(Hstring)
-            fileroot = f"./media/{root}.wav"
-            roottrack = AudioSegment.from_file(fileroot)
             out_f = audio1.overlay(roottrack)
-            # mixedroot.export("created/mixed.wav", format="wav")
-            if counter == 2:
-                audio2 = AudioSegment.from_file(Hstring)
-                out_f = out_f.overlay(audio2)
-                # mixed.export("created/mixed.wav", format="wav")
-            if counter == 3:
-                audio3 = AudioSegment.from_file(Hstring)
-                out_f = out_f.overlay(audio3)
-                # mixed2.replace("created/mixed.wav", format="wav")
-            if counter == 4:
-                audio4 = AudioSegment.from_file(Hstring)
-                out_f = out_f.overlay(audio4)
-                # mixed3.export("created/mixed.wav", format="wav")
-            if counter == 5:
-                audio5 = AudioSegment.from_file(Hstring)
-                out_f = out_f.overlay(audio5)
-                # mixed4.export("created/mixed.wav", format="wav")
-            if counter == 6:
-                audio6 = AudioSegment.from_file(Hstring)
-                out_f = out_f.overlay(audio6)
-                # mixed5.export("created/mixed.wav", format="wav")
-            if counter == 7:
-                audio7 = AudioSegment.from_file(Hstring)
-                out_f = out_f.overlay(audio7)
-                # mixed6.export("created/mixed.wav", format="wav")
-            # filename = "created/mixed.wav"
-            # wave_obj = sa.WaveObject.from_wave_file(filename)
-            # play_obj = wave_obj.play()
-            # play_obj.wait_done
-            play(out_f)
+        if counter == 2:
+            audio2 = AudioSegment.from_file(Hstring)
+            out_f = out_f.overlay(audio2)
+        if counter == 3:
+            audio3 = AudioSegment.from_file(Hstring)
+            out_f = out_f.overlay(audio3)
+        if counter == 4:
+            audio4 = AudioSegment.from_file(Hstring)
+            out_f = out_f.overlay(audio4)
+        if counter == 5:
+            audio5 = AudioSegment.from_file(Hstring)
+            out_f = out_f.overlay(audio5)
+        if counter == 6:
+            audio6 = AudioSegment.from_file(Hstring)
+            out_f = out_f.overlay(audio6)
+        if counter == 7:
+            audio7 = AudioSegment.from_file(Hstring)
+            out_f = out_f.overlay(audio7)
+        print(counter)
+    play(out_f)
 
     return render_template(
         "root.html",
@@ -167,7 +167,118 @@ def getHarmonyKeys(key):
         root=root,
         Keynotes=Keynotes,
         harmlist=harmlist,
+        typevoice=typevoice,
+        typenames=typenames,
+        pattern=pattern,
     )
+
+
+def gettypenames():
+    typenames = [
+        (
+            "Perfect 2nd",
+            "Perfect 4th",
+            "Perfect 5th",
+            "Perfect 6th",
+        ),
+        (
+            "Major triad",
+            "Minor triad",
+            "Diminished",
+            "Augmented",
+        ),
+        (
+            "Major sixth",
+            "Diminished 7th",
+            "Half diminished",
+            "Augmented 7th",
+        ),
+    ]
+
+    return typenames
+
+
+def gettypevoice():
+    typevoice = [
+        (
+            [0, 2],
+            [0, 5],
+            [0, 7],
+            [0, 9],
+        ),
+        (
+            [0, 4, 7],
+            [0, 3, 7],
+            [0, 3, 6],
+            [0, 4, 8],
+        ),
+        (
+            [0, 4, 7, 9],
+            [0, 3, 6, 9],
+            [0, 3, 6, 10],
+            [0, 4, 8, 10],
+        ),
+    ]
+
+    return typevoice
+
+
+def getchordpattern():
+    harmchord = request.form.get("chordSelect")
+    print(harmchord)
+    return harmchord
+
+
+two2nd = [0, 2]
+two4th = [0, 5]
+two5th = [0, 7]
+three3rd = [0, 4, 7]
+threemin3 = [0, 3, 7]
+three5th = [0, 7, 9]
+diminished = [0, 3, 6]
+dim7th = [0, 3, 6, 9]
+halfdim = [0, 3, 6, 10]
+augmented = [0, 4, 8]
+aug7th = [0, 4, 8, 10]
+
+chordselect = aug7th
+userinput = "A"
+
+
+# @app.route("/root", methods=["POST"])
+# def commonharms():
+#     newharm = []
+#     counter = 0
+#     root = userinput
+#     # times = len(chordselect)
+#     for i in notes:
+#         if root == i:
+#             start = notes.index(i)
+#             end = len(notes)
+#             notes = notes[start:end] + notes[0:start]
+#             for d in chordselect:
+#                 each = notes[d]
+#                 newharm.append(each)
+#                 # print(newharm)
+#     for a in newharm:
+#         counter = counter + 1
+#         Hstring = "media/{}.wav".format(a)
+#         # print(Hstring)
+#         if counter == 1:
+#             audio1 = AudioSegment.from_file(Hstring)
+#         if counter == 2:
+#             audio2 = AudioSegment.from_file(Hstring)
+#             out_f = audio1.overlay(audio2)
+#         if counter == 3:
+#             audio3 = AudioSegment.from_file(Hstring)
+#             out_f = out_f.overlay(audio3)
+#         if counter == 4:
+#             audio4 = AudioSegment.from_file(Hstring)
+#             out_f = out_f.overlay(audio4)
+#     play(out_f)
+#     return render_template(
+#         "test.html",
+#     )
 
 
 if __name__ == "__main__":
