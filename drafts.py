@@ -108,3 +108,20 @@ chordtypes = dict(
 
 for a in chordtypes:
     print(a)
+
+
+def gettypevoice_1():
+    typevoice_1 = [[0, 2], [0, 5], [0, 7], [0, 9]]
+
+    return typevoice_1
+
+
+def gettypevoice_2():
+    typevoice_2 = [[0, 4, 7], [0, 3, 7], [0, 3, 6], [0, 4, 8]]
+    return typevoice_2
+
+
+def gettypevoice_3():
+    typevoice_3 = [[0, 4, 7, 9], [0, 3, 6, 9], [0, 3, 6, 10], [0, 4, 8, 10]]
+
+    return typevoice_3

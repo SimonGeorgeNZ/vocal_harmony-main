@@ -21,52 +21,72 @@
         </div>
     </div>
     <div class="col-9 header">
-        <form method="post" action="">
-
+        <form method="post" action="{{url_for('commonharms', key=key)}}">
             <div class="row">
+                
                 <h1 class="text-center">Classic harmonies</h1>
-        
+                <input name="getRoot" class="" type="hidden" id="getRoot"value="{{root}}">
                 <h5> 2 part harmonies </h5>
                 <div class="text-center notesSection col-10">
-                    {% for a in typenames[0] %} {%if typevoice[0]%}
+                    {% for a in chorddataname[0] %} {% if chorddatavoice[0]%}
+                    
+                    
                     <div class="form-check form-check-inline noteselect">
         
                         <input name="chordSelect" class="form-check-input" type="radio" id="inlineRootCheckbox"
-                            value="{{ typevoice[0][loop.index0]}}">
+                            value="{{ chorddatavoice[0][loop.index0]}}" >
                         <label class="form-check-label" for="inlineRootCheckbox">{{ a }} </label>
                     </div>
-                    {% endif %} {% endfor %}
+                    {%endif%}
+                    {%endfor%} 
+                    
+                    
                 </div>
                 <h5> 3 part harmonies </h5>
                 <div class="text-center notesSection col-10">
-                    {% for a in typenames[1] %} {% if typevoice[1]%}
+                    {% for a in chorddataname[1] %} {% if chorddatavoice[1]%}
                     <div class="form-check form-check-inline noteselect">
         
                         <input name="chordSelect" class="form-check-input" type="radio" id="inlineRootCheckbox"
-                            value="{{ typevoice[1][loop.index0]}}">
-                        <label class="form-check-label" for="inlineRootCheckbox">{{ a }} </label>
+                            value="{{ chorddatavoice[1][loop.index0]}}">
+                        <label class="form-check-label" for="inlineRootCheckbox">{{ a }}</label>
                     </div>
-                    {% endif %} {% endfor %}
+                    {%endif%}
+                    {%endfor%} 
+                    
                 </div>
                 <h5> 4 part harmonies </h5>
                 <div class="text-center notesSection col-10">
-                    {% for a in typenames[2] %} {% if typevoice[2]%}
+                    {% for a in chorddataname[2] %} {% if chorddatavoice[2]%}
                     <div class="form-check form-check-inline noteselect">
         
                         <input name="chordSelect" class="form-check-input" type="radio" id="inlineRootCheckbox"
-                            value="{{ typevoice[2][loop.index0]}}">
+                            value="{{ chorddatavoice[2][loop.index0]}}">
                         <label class="form-check-label" for="inlineRootCheckbox">{{ a }} </label>
                     </div>
-                    {% endif %} {% endfor %}
-                </div>
-        
+                    {%endif%}
+                    {%endfor%} 
+                    
+                </div> 
+                
                 <div class="col-1">
                     <button type="submit" id="chord_Select" class="play_root btn btn-primary btn-lg">Submit</button>
                 </div>
+            
+                
+                
+
+            
+                            
+                                
+                                
+                                
             </div>
         </form>
     </div>
 </div>
+
+
 
 
 
@@ -110,61 +130,24 @@
                 {% for notes in Keynotes %}
                 {% if notes != root %}
                 <div class="form-check form-check-inline noteselect">
-                    
+                    <table class="">
+                        <tr>
+                            <td class="" id=""> 
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox{{ notes }}"
                         value="{{ notes }}" name="{{ notes }}"{% for each in harmlist %} {%if each == notes %} checked {%endif%} {% endfor %}>
-                    <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }}</label>
+                    <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }} <br> {{ types[loop.index0]}} <br> {{ order[loop.index0]}}</label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 {%endif%}
                 {% endfor %}
             </div>
-            <div class="text-center notesSection col-10">
-                <table class="table">
-                    <tr>
-                        <td class="lables" id=""> 
-                            <p>
-                                1st<br>Major<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                2nd<br>Minor<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                3rd<br>Minor<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                4th<br>Major<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                5th<br>Major<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                6th<br>Minor<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                7th<br>Dim<br>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
- 
+           
             <div class="col-1">
                 <button type="submit" id="harm_Select"
                     class="play_root btn btn-primary btn-lg">Submit</button>
             </div>
-            <button type="reset">Clear</button>
         </div>
     </form>
 </div>
@@ -177,62 +160,27 @@
                 {% for notes in Keynotes %}
                 {% if notes != root %}
                 <div class="form-check form-check-inline noteselect">
-
+                    <table class="">
+                        <tr>
+                            <td class="" id=""> 
                     <input class="form-check-input" type="checkbox" id="inlineCheckbox{{ notes }}"
-                        value="{{ notes }}" name="{{ notes }}" >
-                    <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }}</label>
+                        value="{{ notes }}" name="{{ notes }}">
+                    <label class="form-check-label" for="inlineCheckbox{{ notes }}">{{ notes }} <br> {{ types[loop.index0]}} <br> {{ order[loop.index0]}}</label>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
+                
                 {%endif%}
                 {% endfor %}
             </div>
-            <div class="text-center notesSection col-10">
-                <table class="table">
-                    <tr>
-                        <td class="lables" id=""> 
-                            <p>
-                                1st<br>Major<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                2nd<br>Minor<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                3rd<br>Minor<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                4th<br>Major<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                5th<br>Major<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                6th<br>Minor<br>
-                            </p>
-                        </td>
-                        <td class="lables" id="">
-                            <p>
-                                7th<br>Dim<br>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            
             <div class="col-1">
                 
                 <button type="submit" id="harm_Select" 
                     class="play_root btn btn-primary btn-lg">Submit</button>
                 
             </div>
-            <button type="reset">Clear</button>
         </div>
     </form>
 </div>
