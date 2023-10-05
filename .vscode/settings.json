@@ -36,4 +36,12 @@
    },
    "python.analysis.typeCheckingMode": "basic",
    "livePreview.defaultPreviewPath": "/templates/index.html",
+   "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+   },
+   "workbench.colorCustomizations": {
+      "activityBar.background": "#482129",
+      "titleBar.activeBackground": "#652F39",
+      "titleBar.activeForeground": "#FCF9F9"
+   },
 }

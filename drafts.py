@@ -1,4 +1,4 @@
-from pydub import AudioSegment
+""" from pydub import AudioSegment
 from pydub.playback import play
 
 # _notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
@@ -16,8 +16,8 @@ from pydub.playback import play
 # aug7th = [0, 4, 8, 10]
 
 
-# # userinput = "C"
-# # chordselect = aug7th
+# userinput = "C"
+# chordselect = aug7th
 
 
 # def commonharms(userinput, chordselect):
@@ -92,7 +92,7 @@ from pydub.playback import play
 #     [0, 4, 8, 10],
 # ]
 
-chordtypes = dict(
+ chordtypes = dict(
     two2nd=[0, 2],
     two4th=[0, 5],
     two5th=[0, 7],
@@ -125,3 +125,49 @@ def gettypevoice_3():
     typevoice_3 = [[0, 4, 7, 9], [0, 3, 6, 9], [0, 3, 6, 10], [0, 4, 8, 10]]
 
     return typevoice_3
+ """
+
+
+# Your Python function to get scale and chords goes here
+
+
+def get_key_signatures():
+    return ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"]
+
+
+@app.route("/", methods=["GET", "POST"])
+def index():
+    key_signatures = get_key_signatures()
+
+    if request.method == "POST":
+        selected_key = request.form["keySignature"]
+
+        # Call your Python function passing selected_key
+        # Replace the placeholders with the actual results
+
+        major_scale = "C, D, E, F, G, A, B"
+        major_chord = "C, E, G"
+        minor_chord = "C, D#, G"
+
+        return render_template(
+            "index.html",
+            key_signatures=key_signatures,
+            selected_key=selected_key,
+            major_scale=major_scale,
+            major_chord=major_chord,
+            minor_chord=minor_chord,
+        )
+
+    return render_template("index.html", key_signatures=key_signatures)
+
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+from flask import Flask, render_template, request
+from notes import get_major_scale, get_key_signatures
+
+app = Flask(__name__)
+
+for x in pattern[y]:
+    print(scale[x])
